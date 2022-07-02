@@ -21,6 +21,11 @@ struct YourPianoApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: save) // save all data when moved to background
         }
+    }
+    
+    func save(_ note: Notification) {
+        dataController.save()
     }
 }
