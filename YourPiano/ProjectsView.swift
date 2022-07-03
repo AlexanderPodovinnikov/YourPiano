@@ -29,7 +29,7 @@ struct ProjectsView: View {
             List {
                 ForEach(projects.wrappedValue) {project in
                     Section(header: ProjecrtHeaderView(project: project)) {
-                        ForEach(items(for: project)) { item in
+                        ForEach(project.projectItems(using: sortOrder)) { item in
                             ItemRowView(item: item)
                         }
                         .onDelete { offsets in
@@ -91,17 +91,6 @@ struct ProjectsView: View {
             }
         } // NavigationView
     } // body
-    
-    func items(for project: Project) -> [Item] {
-        switch sortOrder {
-        case .optimized:
-            return project.projectItemsDefaultSorted
-        case .creationDate:
-            return project.projectItems.sorted(by: \Item.itemCreationDate)
-        case .title:
-            return project.projectItems.sorted(by: \Item.itemTitle)
-        }
-    }
 }
 
 struct ProjectsView_Previews: PreviewProvider {

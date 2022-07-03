@@ -9,7 +9,7 @@ import Foundation
 
 extension Project {
     var projectTitle: String {
-        title ?? ""
+        title ?? "New Section"
     }
     
     var projectDetail: String {
@@ -25,8 +25,6 @@ extension Project {
     }
     
     var projectItemsDefaultSorted: [Item] {
-//        let itemsArray = items?.allObjects as? [Item] ?? []
-//        return itemsArray.sorted { first, second in
         projectItems.sorted { first, second in
             if !first.completed {
                 if second.completed {
@@ -68,9 +66,14 @@ extension Project {
     
     static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
     
-    func projectItems<Value: Comparable>(sortedBy keyPath: KeyPath<Item, Value>) -> [Item] {
-        projectItems.sorted {
-            $0[keyPath: keyPath] < $1[keyPath: keyPath]
+    func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
+        switch sortOrder {
+        case .optimized:
+            return projectItemsDefaultSorted
+        case .creationDate:
+            return projectItems.sorted(by: \Item.itemCreationDate)
+        case .title:
+            return projectItems.sorted(by: \Item.itemTitle)
         }
     }
 }
