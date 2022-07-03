@@ -97,9 +97,9 @@ struct ProjectsView: View {
         case .optimized:
             return project.projectItemsDefaultSorted
         case .creationDate:
-            return project.projectItems.sorted { $0.itemCreationDate < $1.itemCreationDate }
+            return project.projectItems.sorted(by: \Item.itemCreationDate)
         case .title:
-            return project.projectItems.sorted { $0.itemTitle < $1.itemTitle}
+            return project.projectItems.sorted(by: \Item.itemTitle)
         }
     }
 }
