@@ -25,6 +25,10 @@
 		16EBB075286C738E00199098 /* Project-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */; };
 		16EC739128720DDD00468007 /* Sequence-Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC739028720DDD00468007 /* Sequence-Sorting.swift */; };
 		16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC739228730A5800468007 /* SelectSomethingView.swift */; };
+		16EC73952873435D00468007 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73942873435D00468007 /* Bundle-Decodable.swift */; };
+		16EC73972873521700468007 /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73962873521700468007 /* Awards.json */; };
+		16EC73992873531600468007 /* Award.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73982873531600468007 /* Award.swift */; };
+		16EC739B287354B200468007 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC739A287354B200468007 /* AwardsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project-CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		16EC739028720DDD00468007 /* Sequence-Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence-Sorting.swift"; sourceTree = "<group>"; };
 		16EC739228730A5800468007 /* SelectSomethingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSomethingView.swift; sourceTree = "<group>"; };
+		16EC73942873435D00468007 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
+		16EC73962873521700468007 /* Awards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Awards.json; sourceTree = "<group>"; };
+		16EC73982873531600468007 /* Award.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Award.swift; sourceTree = "<group>"; };
+		16EC739A287354B200468007 /* AwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,13 +89,17 @@
 		16255A5E286A51F6008BBA05 /* YourPiano */ = {
 			isa = PBXGroup;
 			children = (
+				16EC73962873521700468007 /* Awards.json */,
 				16EBB06D286B724B00199098 /* YourPiano.entitlements */,
 				16EBB06C286B718F00199098 /* Info.plist */,
 				16255A5F286A51F6008BBA05 /* YourPianoApp.swift */,
 				16EBB06E286B935F00199098 /* HomeView.swift */,
 				16EBB070286B992C00199098 /* ProjectsView.swift */,
+				16EC73942873435D00468007 /* Bundle-Decodable.swift */,
 				16EC739228730A5800468007 /* SelectSomethingView.swift */,
 				16EC739028720DDD00468007 /* Sequence-Sorting.swift */,
+				16EC73982873531600468007 /* Award.swift */,
+				16EC739A287354B200468007 /* AwardsView.swift */,
 				169DFCBB286F508600B50C3B /* EditProjectView.swift */,
 				169DFCB9286F371300B50C3B /* Colors.xcassets */,
 				169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */,
@@ -172,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				169DFCBA286F371300B50C3B /* Colors.xcassets in Resources */,
+				16EC73972873521700468007 /* Awards.json in Resources */,
 				16255A67286A51FA008BBA05 /* Preview Assets.xcassets in Resources */,
 				16255A64286A51FA008BBA05 /* Assets.xcassets in Resources */,
 			);
@@ -186,15 +199,18 @@
 			files = (
 				169DFCB8286F2E5500B50C3B /* ProjecrtHeaderView.swift in Sources */,
 				16EBB071286B992D00199098 /* ProjectsView.swift in Sources */,
+				16EC739B287354B200468007 /* AwardsView.swift in Sources */,
 				16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */,
 				16EBB075286C738E00199098 /* Project-CoreDataHelpers.swift in Sources */,
 				169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */,
 				16EBB06B286B632F00199098 /* DataController.swift in Sources */,
 				16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */,
+				16EC73992873531600468007 /* Award.swift in Sources */,
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,
 				16EC739128720DDD00468007 /* Sequence-Sorting.swift in Sources */,
 				16255A62286A51F6008BBA05 /* ContentView.swift in Sources */,
 				169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */,
+				16EC73952873435D00468007 /* Bundle-Decodable.swift in Sources */,
 				16EBB06F286B935F00199098 /* HomeView.swift in Sources */,
 				16255A60286A51F6008BBA05 /* YourPianoApp.swift in Sources */,
 				16EBB073286C719F00199098 /* Item-CoreDataHelpers.swift in Sources */,
