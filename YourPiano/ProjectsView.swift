@@ -26,31 +26,38 @@ struct ProjectsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(projects.wrappedValue) {project in
-                    Section(header: ProjecrtHeaderView(project: project)) {
-                        ForEach(project.projectItems(using: sortOrder)) { item in
-                            ItemRowView(item: item)
-                        }
-                        .onDelete { offsets in
-                            let allItems = project.projectItems
-                            for offset in offsets {
-                                let item = allItems[offset]
-                                dataController.delete(item)
-                            }
-                            dataController.save()
-                        }
-                        if !showClosedProjects {
-                            Button {
-                                withAnimation {
-                                    let item = Item(context: managedObjectContext)
-                                    item.project = project
-                                    item.creationDate = Date()
+            Group {
+                if projects.wrappedValue.count == 0 {
+                    Text("There's nothing here right now.")
+                        .foregroundColor(.secondary)
+                } else {
+                    List {
+                        ForEach(projects.wrappedValue) {project in
+                            Section(header: ProjecrtHeaderView(project: project)) {
+                                ForEach(project.projectItems(using: sortOrder)) { item in
+                                    ItemRowView(project: project, item: item)
+                                }
+                                .onDelete { offsets in
+                                    let allItems = project.projectItems(using: sortOrder)
+                                    for offset in offsets {
+                                        let item = allItems[offset]
+                                        dataController.delete(item)
+                                    }
                                     dataController.save()
                                 }
-                                
-                            } label: {
-                                Label("Add New Item", systemImage: "Plus")
+                                if !showClosedProjects {
+                                    Button {
+                                        withAnimation {
+                                            let item = Item(context: managedObjectContext)
+                                            item.project = project
+                                            item.creationDate = Date()
+                                            dataController.save()
+                                        }
+                                        
+                                    } label: {
+                                        Label("Add New Item", systemImage: "plus")
+                                    }
+                                }
                             }
                         }
                     }
@@ -64,7 +71,7 @@ struct ProjectsView: View {
                     .default(Text("Creation date")) { sortOrder = .creationDate },
                     .default(Text("Title")) { sortOrder = .title}
                 ])
-            }
+            } //actionsheet
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !showClosedProjects {
@@ -75,7 +82,6 @@ struct ProjectsView: View {
                                 project.creationDate = Date()
                                 dataController.save()
                             }
-                            
                         } label: {
                             Label("Add Section", systemImage: "plus") // Label View will be placed automaticaly depending on the platform
                         }
@@ -88,7 +94,10 @@ struct ProjectsView: View {
                         Label("Sort", systemImage: "arrow.up.arrow.down")
                     }
                 }
-            }
+            } // toolbar
+            
+            SelectSomethingView()
+            
         } // NavigationView
     } // body
 }
