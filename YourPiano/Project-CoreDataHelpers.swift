@@ -9,7 +9,7 @@ import Foundation
 
 extension Project {
     var projectTitle: String {
-        title ?? "New Section"
+        title ?? NSLocalizedString("New Section", comment: "Create a new section")
     }
     
     var projectDetail: String {

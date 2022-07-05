@@ -75,7 +75,7 @@ struct HomeView: View {
             .background(Color.systemGroupedBackground.ignoresSafeArea())
         }
     }
-    @ViewBuilder func list(_ title: String, for items: FetchedResults<Item>.SubSequence) -> some View {
+    @ViewBuilder func list(_ title: LocalizedStringKey, for items: FetchedResults<Item>.SubSequence) -> some View {
         if items.isEmpty {
             EmptyView()
         } else {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjecrtHeaderView: View {
+struct ProjectHeaderView: View {
     @ObservedObject var project: Project
     
     
@@ -30,7 +30,7 @@ struct ProjecrtHeaderView: View {
 struct ProjecrtHeaderView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ProjecrtHeaderView(project: Project.example)
+        ProjectHeaderView(project: Project.example)
             
     }
 }

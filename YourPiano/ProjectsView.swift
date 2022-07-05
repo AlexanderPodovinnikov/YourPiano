@@ -33,7 +33,7 @@ struct ProjectsView: View {
                 } else {
                     List {
                         ForEach(projects.wrappedValue) {project in
-                            Section(header: ProjecrtHeaderView(project: project)) {
+                            Section(header: ProjectHeaderView(project: project)) {
                                 ForEach(project.projectItems(using: sortOrder)) { item in
                                     ItemRowView(project: project, item: item)
                                 }
