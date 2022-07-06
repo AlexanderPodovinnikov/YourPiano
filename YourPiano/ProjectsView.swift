@@ -83,7 +83,13 @@ struct ProjectsView: View {
                                 dataController.save()
                             }
                         } label: {
-                            Label("Add Section", systemImage: "plus") // Label View will be placed automaticaly depending on the platform
+//                            Label("Add Section", systemImage: "plus") // Label View will be placed automaticaly depending on the platform
+                            // next code was added due to a bug in VoiceOver. Maybe, later it won't be needed
+                            if UIAccessibility.isVoiceOverRunning {
+                                Text("Add Project")
+                            } else {
+                                Label("Add Project", systemImage: "plus")
+                            }
                         }
                     }
                 }
