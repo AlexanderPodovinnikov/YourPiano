@@ -38,7 +38,6 @@ struct AwardsView: View {
                             Text(dataController.hasEarned(award: item) ? "Unlocked \(item.name)" : "Locked")
                         )
                         .accessibilityHint(Text(item.description))
-                        
                     }
                 }
             }

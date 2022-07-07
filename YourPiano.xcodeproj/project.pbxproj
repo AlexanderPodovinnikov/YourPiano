@@ -32,6 +32,8 @@
 		16EC73A22874C8B800468007 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73A42874C8B800468007 /* Localizable.strings */; };
 		16EC73A62874CD6800468007 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73A82874CD6800468007 /* Localizable.stringsdict */; };
 		16EC73AC2874D0E200468007 /* Awards.json in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73AE2874D0E200468007 /* Awards.json */; };
+		16EC73B12876E59D00468007 /* ItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73B02876E59C00468007 /* ItemsListView.swift */; };
+		16EC73B32876E8E200468007 /* ProjectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73B22876E8E200468007 /* ProjectSummaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		16EC73A92874CD6B00468007 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		16EC73AD2874D0E200468007 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/Awards.json; sourceTree = "<group>"; };
 		16EC73AF2874D0E800468007 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = ru; path = ru.lproj/Awards.json; sourceTree = "<group>"; };
+		16EC73B02876E59C00468007 /* ItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListView.swift; sourceTree = "<group>"; };
+		16EC73B22876E8E200468007 /* ProjectSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSummaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				16EBB06C286B718F00199098 /* Info.plist */,
 				16255A5F286A51F6008BBA05 /* YourPianoApp.swift */,
 				16EBB06E286B935F00199098 /* HomeView.swift */,
+				16EC73B22876E8E200468007 /* ProjectSummaryView.swift */,
+				16EC73B02876E59C00468007 /* ItemsListView.swift */,
 				16EBB070286B992C00199098 /* ProjectsView.swift */,
 				16EC73942873435D00468007 /* Bundle-Decodable.swift */,
 				16EC739228730A5800468007 /* SelectSomethingView.swift */,
@@ -213,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */,
+				16EC73B32876E8E200468007 /* ProjectSummaryView.swift in Sources */,
 				16EBB071286B992D00199098 /* ProjectsView.swift in Sources */,
 				16EC739B287354B200468007 /* AwardsView.swift in Sources */,
 				16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */,
@@ -223,6 +230,7 @@
 				16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */,
 				16EC73992873531600468007 /* Award.swift in Sources */,
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,
+				16EC73B12876E59D00468007 /* ItemsListView.swift in Sources */,
 				16EC739128720DDD00468007 /* Sequence-Sorting.swift in Sources */,
 				16255A62286A51F6008BBA05 /* ContentView.swift in Sources */,
 				169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */,

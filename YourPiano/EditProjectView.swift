@@ -37,29 +37,7 @@ struct EditProjectView: View {
             }
             Section(header: Text("Custom section color")) {
                 LazyVGrid(columns: colorColumns) {
-                    ForEach(Project.colors, id: \.self) { item in
-                        ZStack {
-                            Color(item)
-                                .aspectRatio(1, contentMode: .fit)
-                                .cornerRadius(6)
-                            if item == self.color {
-                                Image(systemName: "checkmark.circle")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                            }
-                        }
-                        .onTapGesture {
-                            self.color = item
-                            update()
-                        }
-                        .accessibilityElement(children: .ignore)
-                        .accessibilityAddTraits(
-                            item == color
-                                ? [.isButton, .isSelected]
-                                : .isButton
-                        )
-                        .accessibilityLabel(LocalizedStringKey(item))
-                    }
+                    ForEach(Project.colors, id: \.self, content: colorButton)
                 }
                 .padding(.vertical)
                 
@@ -85,6 +63,31 @@ struct EditProjectView: View {
             )
         }
     }
+    
+    func colorButton(for item: String) -> some View {
+        ZStack {
+            Color(item)
+                .aspectRatio(1, contentMode: .fit)
+                .cornerRadius(6)
+            if item == self.color {
+                Image(systemName: "checkmark.circle")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+            }
+        }
+        .onTapGesture {
+            self.color = item
+            update()
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(
+            item == color
+                ? [.isButton, .isSelected]
+                : .isButton
+        )
+        .accessibilityLabel(LocalizedStringKey(item))
+    }
+    
     func update() {
         project.title = title
         project.detail = detail

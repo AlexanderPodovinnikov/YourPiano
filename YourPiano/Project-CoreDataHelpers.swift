@@ -5,7 +5,7 @@
 //  Created by Alex Po on 29.06.2022.
 //
 
-import Foundation
+import SwiftUI
 
 extension Project {
     var projectTitle: String {
@@ -62,6 +62,10 @@ extension Project {
         project.creationDate = Date()
         
         return project
+    }
+    
+    var label: LocalizedStringKey {
+        LocalizedStringKey("\(projectTitle), \(projectItems.count) items, \(completionAmount * 100, specifier: "%g")% complete.")
     }
     
     static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
