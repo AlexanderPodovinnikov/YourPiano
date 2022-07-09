@@ -8,24 +8,30 @@
 import SwiftUI
 import CoreData
 // we need CoreData to create NSFetchRequest by hand
-
+// Not reflects changes in projects - will rewrite it on MVVM
 struct HomeView: View {
     @EnvironmentObject var dataController: DataController
+
     @FetchRequest(entity: Project.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Project.title, ascending: true)],
                   predicate: NSPredicate(format: "closed = false"))
-        var projects: FetchedResults<Project>
+       var projects: FetchedResults<Project>
     
     static let tag: String? = "Home"
     
-    let items: FetchRequest<Item>
+    var items: FetchRequest<Item>
     var projectRows: [GridItem] {
         [GridItem(.fixed(100))]
     }
     
     init() {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "completed = false")
+//        request.predicate = NSPredicate(format: "completed = false AND project.closed = false")
+        let completedPredicate = NSPredicate(format: "completed = false")
+        let openPredicate = NSPredicate(format: "project.closed = false")
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+        request.predicate = compoundPredicate
+        
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \Item.priority, ascending: false)
         ]
@@ -56,6 +62,12 @@ struct HomeView: View {
             }
             .navigationTitle("Home")
             .background(Color.systemGroupedBackground.ignoresSafeArea())
+            .toolbar {
+                Button("Add Data") {
+                    dataController.deleteAll()
+                    try? dataController.createSampleData()
+                }
+            }
         }
     }
 }

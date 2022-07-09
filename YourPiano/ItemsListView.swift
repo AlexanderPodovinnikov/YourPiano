@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+// This view should be revisioned - not reflects changes in projects in real time
 struct ItemsListView: View {
-    var title: LocalizedStringKey
-    var items: FetchedResults<Item>.SubSequence
+
+    let title: LocalizedStringKey
+    let items: FetchedResults<Item>.SubSequence
     
     var body: some View {
         if items.isEmpty {
@@ -30,18 +32,19 @@ struct ItemsListView: View {
                             Text(item.itemTitle)
                                 .font(.title2)
                                 .foregroundColor(.primary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 
                             if !item.itemDetail.isEmpty {
                                 Text(item.itemDetail)
                                     .foregroundColor(.secondary)
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .padding()
                     .background(Color.secondarySystemGroupedBackground)
                     .cornerRadius(10)
                     .shadow(color: Color.black.opacity(0.2), radius: 5)
+                    .frame(maxWidth: .infinity, alignment: .leading) //???
                 }
             }
         }
