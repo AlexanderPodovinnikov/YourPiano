@@ -50,7 +50,7 @@
 		169DFCBB286F508600B50C3B /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
 		16EBB06A286B632F00199098 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		16EBB06C286B718F00199098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		16EBB06C286B718F00199098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16EBB06D286B724B00199098 /* YourPiano.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YourPiano.entitlements; sourceTree = "<group>"; };
 		16EBB06E286B935F00199098 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		16EBB070286B992C00199098 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
@@ -83,10 +83,87 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1600B65E287C805F0081F99D /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				16255A61286A51F6008BBA05 /* ContentView.swift */,
+				1600B661287C815C0081F99D /* Awards */,
+				1600B660287C80E00081F99D /* Projects */,
+				1600B65F287C808E0081F99D /* Home */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		1600B65F287C808E0081F99D /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				16EBB06E286B935F00199098 /* HomeView.swift */,
+				16EC73B02876E59C00468007 /* ItemsListView.swift */,
+				16EC73B22876E8E200468007 /* ProjectSummaryView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1600B660287C80E00081F99D /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				16EBB070286B992C00199098 /* ProjectsView.swift */,
+				169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */,
+				169DFCBB286F508600B50C3B /* EditProjectView.swift */,
+				169DFCB3286DC3E100B50C3B /* ItemRowView.swift */,
+				16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */,
+				16EC739228730A5800468007 /* SelectSomethingView.swift */,
+			);
+			path = Projects;
+			sourceTree = "<group>";
+		};
+		1600B661287C815C0081F99D /* Awards */ = {
+			isa = PBXGroup;
+			children = (
+				16EC73AE2874D0E200468007 /* Awards.json */,
+				16EC73982873531600468007 /* Award.swift */,
+				16EC739A287354B200468007 /* AwardsView.swift */,
+			);
+			path = Awards;
+			sourceTree = "<group>";
+		};
+		1600B662287C81D30081F99D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				16EBB072286C719F00199098 /* Item-CoreDataHelpers.swift */,
+				16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */,
+				169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */,
+				16EC739C2873793600468007 /* Color-Additions.swift */,
+				16EC739028720DDD00468007 /* Sequence-Sorting.swift */,
+				16EC73942873435D00468007 /* Bundle-Decodable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1600B663287C83090081F99D /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				16EBB06D286B724B00199098 /* YourPiano.entitlements */,
+				16EBB06C286B718F00199098 /* Info.plist */,
+				16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		1600B664287C85090081F99D /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				16EC73A42874C8B800468007 /* Localizable.strings */,
+				16EC73A82874CD6800468007 /* Localizable.stringsdict */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		16255A53286A51F6008BBA05 = {
 			isa = PBXGroup;
 			children = (
 				16255A5E286A51F6008BBA05 /* YourPiano */,
+				16255A65286A51FA008BBA05 /* Preview Content */,
 				16255A5D286A51F6008BBA05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,35 +179,14 @@
 		16255A5E286A51F6008BBA05 /* YourPiano */ = {
 			isa = PBXGroup;
 			children = (
-				16EC73AE2874D0E200468007 /* Awards.json */,
-				16EBB06D286B724B00199098 /* YourPiano.entitlements */,
-				16EBB06C286B718F00199098 /* Info.plist */,
+				1600B664287C85090081F99D /* Localization */,
+				1600B65E287C805F0081F99D /* Activities */,
+				1600B662287C81D30081F99D /* Extensions */,
+				1600B663287C83090081F99D /* Configuration */,
 				16255A5F286A51F6008BBA05 /* YourPianoApp.swift */,
-				16EBB06E286B935F00199098 /* HomeView.swift */,
-				16EC73B22876E8E200468007 /* ProjectSummaryView.swift */,
-				16EC73B02876E59C00468007 /* ItemsListView.swift */,
-				16EBB070286B992C00199098 /* ProjectsView.swift */,
-				16EC73942873435D00468007 /* Bundle-Decodable.swift */,
-				16EC739228730A5800468007 /* SelectSomethingView.swift */,
-				16EC739028720DDD00468007 /* Sequence-Sorting.swift */,
-				16EC73982873531600468007 /* Award.swift */,
-				16EC739A287354B200468007 /* AwardsView.swift */,
-				16EC739C2873793600468007 /* Color-Additions.swift */,
-				169DFCBB286F508600B50C3B /* EditProjectView.swift */,
-				169DFCB9286F371300B50C3B /* Colors.xcassets */,
-				169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */,
 				16EBB06A286B632F00199098 /* DataController.swift */,
-				16255A61286A51F6008BBA05 /* ContentView.swift */,
-				16EC73A42874C8B800468007 /* Localizable.strings */,
-				16EC73A82874CD6800468007 /* Localizable.stringsdict */,
-				16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */,
-				169DFCB3286DC3E100B50C3B /* ItemRowView.swift */,
-				169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */,
-				16EBB072286C719F00199098 /* Item-CoreDataHelpers.swift */,
-				16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */,
-				16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */,
 				16255A63286A51FA008BBA05 /* Assets.xcassets */,
-				16255A65286A51FA008BBA05 /* Preview Content */,
+				169DFCB9286F371300B50C3B /* Colors.xcassets */,
 			);
 			path = YourPiano;
 			sourceTree = "<group>";
@@ -153,6 +209,7 @@
 				16255A58286A51F6008BBA05 /* Sources */,
 				16255A59286A51F6008BBA05 /* Frameworks */,
 				16255A5A286A51F6008BBA05 /* Resources */,
+				1600B65D287B66870081F99D /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -212,6 +269,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1600B65D287B66870081F99D /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		16255A58286A51F6008BBA05 /* Sources */ = {
@@ -396,7 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = YourPiano/YourPiano.entitlements;
+				CODE_SIGN_ENTITLEMENTS = YourPiano/Configuration/YourPiano.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -404,7 +482,7 @@
 				DEVELOPMENT_TEAM = 8G6K748QD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YourPiano/Info.plist;
+				INFOPLIST_FILE = YourPiano/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -429,7 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = YourPiano/YourPiano.entitlements;
+				CODE_SIGN_ENTITLEMENTS = YourPiano/Configuration/YourPiano.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -437,7 +515,7 @@
 				DEVELOPMENT_TEAM = 8G6K748QD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YourPiano/Info.plist;
+				INFOPLIST_FILE = YourPiano/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

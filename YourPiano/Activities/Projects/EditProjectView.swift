@@ -7,23 +7,31 @@
 
 import SwiftUI
 
+/// View to edit project attributes or to delete  project permanently
 struct EditProjectView: View {
+
+    /// Current project.
     let project: Project
+    /// Environment variable to control View dismiss.
     @Environment(\.presentationMode) var presentationMode
+
+    /// Boolean to bind with deletion alert.
     @State private var showingDeleteConfirm = false
 
     @EnvironmentObject var dataController: DataController
-    
-    
+
+    /// Property to store project title
     @State private var title: String
+    /// Property to store project detail
     @State private var detail: String
+    /// Property to store project color
     @State private var color: String
-    
+
     let colorColumns = [GridItem(.adaptive(minimum: 44))]
-    
+
     init(project: Project) {
         self.project = project
-        
+
         _title = State(wrappedValue: project.projectTitle)
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
@@ -40,10 +48,15 @@ struct EditProjectView: View {
                     ForEach(Project.colors, id: \.self, content: colorButton)
                 }
                 .padding(.vertical)
-                
-                Section(footer: Text("Closing a section moves it from the Open to Completed tab; deleting it removes the section completely.")) {
+
+                Section(
+                    footer: Text(
+                        "Closing a section moves it from the Open to Completed tab; deleting it removes the section completely."
+                    ) // swiftlint:disable:previous line_length
+                ) {
                     Button(project.closed ? "Reopen this section" : "Close this section") {
                         project.closed.toggle()
+                        // Home View doesn't know
                     }
                     Button("Delete this section") {
                         showingDeleteConfirm.toggle()
@@ -57,13 +70,17 @@ struct EditProjectView: View {
         .alert(isPresented: $showingDeleteConfirm) {
             Alert(
                 title: Text("Delete Section?"),
-                message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),
+                message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
                 primaryButton: .default(Text("Delete"), action: delete),
                 secondaryButton: .cancel()
             )
         }
     }
-    
+
+    /// Creates a colored button, that represents one of the project's custom colors.
+    /// User can choose color with tap - selected color will be marked.
+    /// - Parameter item: Name of the available color.
+    /// - Returns: View - a colored button with/ or without checkmark.
     func colorButton(for item: String) -> some View {
         ZStack {
             Color(item)
@@ -87,13 +104,16 @@ struct EditProjectView: View {
         )
         .accessibilityLabel(LocalizedStringKey(item))
     }
-    
+
+    /// Updates project's title, detail and color to their actual values
     func update() {
         project.title = title
         project.detail = detail
         project.color = color
+
     }
-    
+
+    /// Deletes current project and dismisses the View
     func delete() {
         dataController.delete(project)
         presentationMode.wrappedValue.dismiss()

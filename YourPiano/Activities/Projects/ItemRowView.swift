@@ -7,11 +7,16 @@
 
 import SwiftUI
 
-// Вся эта канитель нужна для того, чтобы было куда засунуть @ObservedObject чтобы вид мог обновиться, когда сработает objectWillChange
+// All this stuff is needed for having an @ObservedObject
+// - that forces the View to refresh when objectWillChange event occurs
+
+/// View that presents item in ProjectView and listens
+/// for changes to the  item's attributes to reflect them immediately.
 struct ItemRowView: View {
     @ObservedObject var project: Project
     @ObservedObject var item: Item
-    
+
+    /// label for accessibility text
     var itemLabel: Text {
         if item.completed {
             return Text("\(item.itemTitle), completed.")
@@ -21,7 +26,7 @@ struct ItemRowView: View {
             return Text(item.itemTitle)
         }
     }
-    
+
     var icon: some View {
         if item.completed {
             return Image(systemName: "checkmark.circle")
@@ -29,13 +34,13 @@ struct ItemRowView: View {
         } else if item.priority == 3 {
             return Image(systemName: "exclamationmark.triangle")
                         .foregroundColor(Color(project.projectColor))
-        }else {
+        } else {
             return Image(systemName: "checkmark.circle")
                 .foregroundColor(.clear)
         }
-        
+
     }
-    
+
     var body: some View {
         NavigationLink(destination: EditItemView(item: item)) {
             Label {
@@ -43,7 +48,7 @@ struct ItemRowView: View {
             } icon: {
                 icon
             }
-            
+
         }
         .accessibilityLabel(itemLabel)
     }

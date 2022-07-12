@@ -8,11 +8,19 @@
 import Foundation
 
 extension Bundle {
-    
+
+    /// Decoding data from .json file in the App Bundle.
+    /// - Parameters:
+    ///   - type: Type of an output sequence.
+    ///   - file: A file in the bundle to decode.
+    ///   - dateDecodingStartegy:
+    ///   - keyDecodingStrategy:
+    /// - Returns: A sequence of a given type
     func decode<T: Decodable>(_ type: T.Type, from file: String,
                               dateDecodingStartegy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
-                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> T {
-        
+                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
+    ) -> T {
+
         guard let url = self.url(forResource: file, withExtension: nil) else {
             fatalError("Failed to locate \(file) in bundle.")
         }
@@ -22,15 +30,15 @@ extension Bundle {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = dateDecodingStartegy
         decoder.keyDecodingStrategy = keyDecodingStrategy
-        
+
         do {
             return try decoder.decode(type, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
-            fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' not found - \(context.debugDescription)")
+            fatalError("Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' not found - \(context.debugDescription)") // swiftlint:disable:this line_length
         } catch DecodingError.typeMismatch(_, let context) {
             fatalError("Failed to decode \(file) from bundle due to type mismatch - \(context.debugDescription)")
         } catch DecodingError.valueNotFound(let type, let context) {
-            fatalError("Failed to decode \(file) from bundle due to missing \(type) value - \(context.debugDescription)")
+            fatalError("Failed to decode \(file) from bundle due to missing \(type) value - \(context.debugDescription)") // swiftlint:disable:this line_length
         } catch DecodingError.dataCorrupted(_) {
             fatalError("Failed to decode \(file) from bundle because it appears to be invalid JSON")
         } catch {

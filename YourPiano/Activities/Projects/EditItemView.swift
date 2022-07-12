@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+/// Form to edit item attributes.
 struct EditItemView: View {
     @EnvironmentObject var dataController: DataController
-    
     let item: Item
+
+    /// Item title
     @State private var title: String
+    /// Item detail
     @State private var detail: String
+    /// Item priority
     @State private var priority: Int
+    /// Item completed attribute
     @State private var completed: Bool
-    
+
     init(item: Item) {
         self.item = item
         _title = State(wrappedValue: item.itemTitle)
@@ -23,7 +28,7 @@ struct EditItemView: View {
         _priority = State(wrappedValue: Int(item.priority))
         _completed = State(wrappedValue: item.completed)
     }
-    
+
     var body: some View {
         Form {
             Section(header: Text("Basic settings")) {
@@ -47,6 +52,7 @@ struct EditItemView: View {
         .navigationTitle("Edit Item")
         .onDisappear(perform: dataController.save)
     }
+    /// Updates item's title, detail, priority and completed attribute to their actual values.
     func update() {
         item.project?.objectWillChange.send()
         item.title = title
@@ -57,7 +63,10 @@ struct EditItemView: View {
 }
 
 struct EditItemView_Previews: PreviewProvider {
+    static var dataController = DataController.preview
     static var previews: some View {
         EditItemView(item: Item.example)
+            .environment(\.managedObjectContext, dataController.container.viewContext)
+            .environmentObject(dataController)
     }
 }

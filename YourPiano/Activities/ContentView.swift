@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    /// This property is for remembering the last selected tab
     @SceneStorage("selectedView") var selectedView: String?
-    
+
     var body: some View {
         TabView(selection: $selectedView) {
             HomeView()
@@ -39,10 +40,8 @@ struct ContentView: View {
         }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var dataController = DataController.preview
-
     static var previews: some View {
         ContentView()
             .environment(\.managedObjectContext, dataController.container.viewContext)
