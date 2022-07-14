@@ -9,12 +9,12 @@ import Foundation
 
 extension Sequence {
 
-    /// Sorts any sequence by element property path according to the given comparison function .
+    /// Sorts any sequence by element property path according to the given comparator function .
     ///
     /// - rethrows if comparison function throws
     /// - Parameters:
     ///   - keyPath: A path to elements properties, that should be compared.
-    ///   - areInIncreasingOrder: A comparison function.
+    ///   - areInIncreasingOrder: A comparator function.
     /// - Returns: A sorted array of sequence elements.
     func sorted<Value>(
             by keyPath: KeyPath<Element, Value>,

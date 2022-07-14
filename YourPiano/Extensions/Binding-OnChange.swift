@@ -12,9 +12,9 @@ extension Binding {
     // we call this an escaping function, because its usage escapes onChange() itself
     // and will instead happen at some unknown point in the future.
 
-    /// Handles changes to the Binding wrapped property value.
+    /// Handles changes to the Binding instance value.
     /// - Parameter handler: Method to execute when the property value changed.
-    /// - Returns: Binding wrapper for the property.
+    /// - Returns: Binding instance for the property.
     func onChange(_ handler: @escaping () -> Void) -> Binding<Value> {
         Binding(
             get: { self.wrappedValue },

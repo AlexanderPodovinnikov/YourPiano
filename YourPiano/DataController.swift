@@ -11,15 +11,31 @@ import SwiftUI
 /// An environment singleton responsible for managing Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
 class DataController: ObservableObject {
+
+    // We need to cache the model and share them between multiple containers for testing purposes,
+    // so Core Data won't load it twice!
+    static let model: NSManagedObjectModel = {
+        guard let url = Bundle.main.url(forResource: "Main", withExtension: "momd") else {
+            fatalError("Failed to locate model file.")
+        }
+
+        guard let managedObjectModel = NSManagedObjectModel(contentsOf: url) else {
+            fatalError("Failed to load model file.")
+        }
+
+        return managedObjectModel
+    }()
+
     /// The lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer
 
     /// Initializes a data controller, either in memory (for  testing and previewing),
-    /// or on permanent storage
+    /// or on permanent storage.
+    /// 
     /// Defaults to permanent storage.
     /// - Parameter inMemory: Whether to store this data in temporary memory or not.
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Main")
+        container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
 
         // Create in-memory database by writing to /dev/null
         if inMemory {

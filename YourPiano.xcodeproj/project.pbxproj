@@ -7,16 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1600B675287DBE4C0081F99D /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1600B674287DBE4C0081F99D /* AssetTests.swift */; };
+		1600B676287DC69C0081F99D /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1600B66D287DBA2F0081F99D /* BaseTestCase.swift */; };
+		1600B677287DC8420081F99D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16255A66286A51FA008BBA05 /* Preview Assets.xcassets */; };
+		1600B679287DCBBA0081F99D /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1600B678287DCBBA0081F99D /* ProjectTests.swift */; };
+		1600B67B287DF8B80081F99D /* AwardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1600B67A287DF8B80081F99D /* AwardTests.swift */; };
+		1600B67D287F36DF0081F99D /* DevelopmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1600B67C287F36DF0081F99D /* DevelopmentTests.swift */; };
 		16255A60286A51F6008BBA05 /* YourPianoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16255A5F286A51F6008BBA05 /* YourPianoApp.swift */; };
 		16255A62286A51F6008BBA05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16255A61286A51F6008BBA05 /* ContentView.swift */; };
 		16255A64286A51FA008BBA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16255A63286A51FA008BBA05 /* Assets.xcassets */; };
-		16255A67286A51FA008BBA05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16255A66286A51FA008BBA05 /* Preview Assets.xcassets */; };
 		16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
 		169DFCBA286F371300B50C3B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 169DFCB9286F371300B50C3B /* Colors.xcassets */; };
 		169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCBB286F508600B50C3B /* EditProjectView.swift */; };
+		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
+		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
+		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
 		16EB51D3286CBB9900CE7FC6 /* EditItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */; };
 		16EBB06B286B632F00199098 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB06A286B632F00199098 /* DataController.swift */; };
 		16EBB06F286B935F00199098 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB06E286B935F00199098 /* HomeView.swift */; };
@@ -36,7 +44,23 @@
 		16EC73B32876E8E200468007 /* ProjectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73B22876E8E200468007 /* ProjectSummaryView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1600B66F287DBA2F0081F99D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16255A54286A51F6008BBA05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16255A5B286A51F6008BBA05;
+			remoteInfo = YourPiano;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1600B66B287DBA2F0081F99D /* YourPianoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourPianoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1600B66D287DBA2F0081F99D /* BaseTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		1600B674287DBE4C0081F99D /* AssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTests.swift; sourceTree = "<group>"; };
+		1600B678287DCBBA0081F99D /* ProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
+		1600B67A287DF8B80081F99D /* AwardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardTests.swift; sourceTree = "<group>"; };
+		1600B67C287F36DF0081F99D /* DevelopmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentTests.swift; sourceTree = "<group>"; };
 		16255A5C286A51F6008BBA05 /* YourPiano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourPiano.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16255A5F286A51F6008BBA05 /* YourPianoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourPianoApp.swift; sourceTree = "<group>"; };
 		16255A61286A51F6008BBA05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +72,9 @@
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		169DFCB9286F371300B50C3B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		169DFCBB286F508600B50C3B /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
+		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
+		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
+		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
 		16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
 		16EBB06A286B632F00199098 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		16EBB06C286B718F00199098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +100,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1600B668287DBA2F0081F99D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16255A59286A51F6008BBA05 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,11 +193,26 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
+		1600B66C287DBA2F0081F99D /* YourPianoTests */ = {
+			isa = PBXGroup;
+			children = (
+				16E423EB2880245C0032C4DF /* TestFixtures */,
+				1600B66D287DBA2F0081F99D /* BaseTestCase.swift */,
+				1600B674287DBE4C0081F99D /* AssetTests.swift */,
+				1600B678287DCBBA0081F99D /* ProjectTests.swift */,
+				1600B67A287DF8B80081F99D /* AwardTests.swift */,
+				1600B67C287F36DF0081F99D /* DevelopmentTests.swift */,
+				16E423E928801C2E0032C4DF /* ExtensionTests.swift */,
+			);
+			path = YourPianoTests;
+			sourceTree = "<group>";
+		};
 		16255A53286A51F6008BBA05 = {
 			isa = PBXGroup;
 			children = (
 				16255A5E286A51F6008BBA05 /* YourPiano */,
 				16255A65286A51FA008BBA05 /* Preview Content */,
+				1600B66C287DBA2F0081F99D /* YourPianoTests */,
 				16255A5D286A51F6008BBA05 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				16255A5C286A51F6008BBA05 /* YourPiano.app */,
+				1600B66B287DBA2F0081F99D /* YourPianoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,9 +249,36 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		16E423EB2880245C0032C4DF /* TestFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				16E423EC288024BF0032C4DF /* DecodableDictionary.json */,
+				16E423EE288025610032C4DF /* DecodableString.json */,
+			);
+			path = TestFixtures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1600B66A287DBA2F0081F99D /* YourPianoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1600B671287DBA2F0081F99D /* Build configuration list for PBXNativeTarget "YourPianoTests" */;
+			buildPhases = (
+				1600B667287DBA2F0081F99D /* Sources */,
+				1600B668287DBA2F0081F99D /* Frameworks */,
+				1600B669287DBA2F0081F99D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1600B670287DBA2F0081F99D /* PBXTargetDependency */,
+			);
+			name = YourPianoTests;
+			productName = YourPianoTests;
+			productReference = 1600B66B287DBA2F0081F99D /* YourPianoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		16255A5B286A51F6008BBA05 /* YourPiano */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16255A6A286A51FA008BBA05 /* Build configuration list for PBXNativeTarget "YourPiano" */;
@@ -230,6 +307,10 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					1600B66A287DBA2F0081F99D = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 16255A5B286A51F6008BBA05;
+					};
 					16255A5B286A51F6008BBA05 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -250,19 +331,29 @@
 			projectRoot = "";
 			targets = (
 				16255A5B286A51F6008BBA05 /* YourPiano */,
+				1600B66A287DBA2F0081F99D /* YourPianoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1600B669287DBA2F0081F99D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16E423EF288025610032C4DF /* DecodableString.json in Resources */,
+				16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16255A5A286A51F6008BBA05 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1600B677287DC8420081F99D /* Preview Assets.xcassets in Resources */,
 				16EC73A22874C8B800468007 /* Localizable.strings in Resources */,
 				169DFCBA286F371300B50C3B /* Colors.xcassets in Resources */,
 				16EC73AC2874D0E200468007 /* Awards.json in Resources */,
-				16255A67286A51FA008BBA05 /* Preview Assets.xcassets in Resources */,
 				16255A64286A51FA008BBA05 /* Assets.xcassets in Resources */,
 				16EC73A62874CD6800468007 /* Localizable.stringsdict in Resources */,
 			);
@@ -292,6 +383,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1600B667287DBA2F0081F99D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1600B676287DC69C0081F99D /* BaseTestCase.swift in Sources */,
+				1600B67B287DF8B80081F99D /* AwardTests.swift in Sources */,
+				1600B675287DBE4C0081F99D /* AssetTests.swift in Sources */,
+				16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */,
+				1600B679287DCBBA0081F99D /* ProjectTests.swift in Sources */,
+				1600B67D287F36DF0081F99D /* DevelopmentTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16255A58286A51F6008BBA05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,6 +425,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1600B670287DBA2F0081F99D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16255A5B286A51F6008BBA05 /* YourPiano */;
+			targetProxy = 1600B66F287DBA2F0081F99D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		16EC73A42874C8B800468007 /* Localizable.strings */ = {
@@ -353,6 +465,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1600B672287DBA2F0081F99D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G6K748QD4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Po.Alex.YourPianoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YourPiano.app/YourPiano";
+			};
+			name = Debug;
+		};
+		1600B673287DBA2F0081F99D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G6K748QD4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Po.Alex.YourPianoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YourPiano.app/YourPiano";
+			};
+			name = Release;
+		};
 		16255A68286A51FA008BBA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -478,7 +626,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"YourPiano/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8G6K748QD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -511,7 +659,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"YourPiano/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8G6K748QD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -538,6 +686,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1600B671287DBA2F0081F99D /* Build configuration list for PBXNativeTarget "YourPianoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1600B672287DBA2F0081F99D /* Debug */,
+				1600B673287DBA2F0081F99D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		16255A57286A51F6008BBA05 /* Build configuration list for PBXProject "YourPiano" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
