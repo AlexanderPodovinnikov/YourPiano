@@ -60,9 +60,9 @@ struct ProjectsView: View {
                     // Next code was written instead due to a bug in VoiceOver.
                     // Maybe, later it won't be needed
                     if UIAccessibility.isVoiceOverRunning {
-                        Text("Add Project")
+                        Text("Add Section")
                     } else {
-                        Label("Add Project", systemImage: "plus")
+                        Label("Add Section", systemImage: "plus")
                     }
                 }
             }
