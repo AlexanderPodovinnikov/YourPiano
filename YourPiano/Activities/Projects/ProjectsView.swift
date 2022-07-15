@@ -36,7 +36,7 @@ struct ProjectsView: View {
                     .onDelete { offsets in
                         delete(at: offsets, from: project)
                     }
-                    if !showClosedProjects {
+                    if !showClosedProjects { // !showClosedProjects
                         Button {
                             addItem(to: project)
                         } label: {

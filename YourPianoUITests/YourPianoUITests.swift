@@ -69,6 +69,28 @@ class YourPianoUITests: XCTestCase {
                       "The edited project name should be visible in the list.")
     }
 
+    func testOpeningAndClosingMovesProject() {
+        app.buttons["In progress"].tap()
+        XCTAssertEqual(app.tables.cells.count, 0, "There should be no rows initially.")
+
+        app.buttons["Add Section"].tap()
+        XCTAssertEqual(app.tables.cells.count, 1, "There should be 1 row for 1 project.")
+
+        app.buttons["New Section"].tap()
+        app.buttons["Close this section"].tap()
+        XCTAssertEqual(app.tables.cells.count, 0, "There should be no rows after closing project.")
+
+        app.buttons["Completed"].tap()
+        XCTAssertTrue(app.buttons["New Section"].exists, "There should be one closed project.")
+
+        app.buttons["New Section"].tap()
+        app.buttons["Reopen this section"].tap()
+        XCTAssertFalse(app.buttons["New Section"].exists, "There should be no project in the list after reopening it.")
+
+        app.buttons["In progress"].tap()
+        XCTAssertEqual(app.tables.cells.count, 1, "There should be one reopened project.")
+    }
+
     func testEditingItemUpdatesCorrectly() {
         // Go to Open Projects and add one project and one item.
         testAddingItemInsertsRow()
@@ -96,5 +118,23 @@ class YourPianoUITests: XCTestCase {
                           "There should be a Locked alert showing for awards.")
             app.buttons["OK"].tap()
         }
+    }
+
+    func testOpeningAwardShowsUnlockedAlert() {
+        // Go to Open Projects and add one project and one item.
+        testAddingItemInsertsRow()
+        app.buttons["Awards"].tap()
+        app.scrollViews.buttons.element(boundBy: 0).tap()
+        XCTAssertTrue(app.alerts["Unlocked First Steps"].exists, "First award should be unlocked.")
+
+    }
+
+    func testSwipeDeletesItem() {
+        // Go to Open Projects and add one project and one item.
+        testAddingItemInsertsRow()
+
+        app.buttons["New Item"].swipeLeft()
+        app.buttons["Delete"].tap()
+        XCTAssertEqual(app.tables.cells.count, 1, "There should be 1 row after deleting item.")
     }
 }
