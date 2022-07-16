@@ -10,6 +10,8 @@ import CoreData
 // we need CoreData to create NSFetchRequest by hand
 // (to show the 10 highest-priority incomplete items from open projects)
 // But the whole thing does not reflect changes in projects - I will rewrite it later on MVVM
+// This means using NSFetchedResultsController,
+// which will perform the initial fetch request and also stay updated.
 
 /// View that represents open projects in horizontal scroll view,
 /// and 10 incomplete highest-priority items from open projects

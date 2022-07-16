@@ -17,6 +17,7 @@
 		16255A62286A51F6008BBA05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16255A61286A51F6008BBA05 /* ContentView.swift */; };
 		16255A64286A51FA008BBA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16255A63286A51FA008BBA05 /* Assets.xcassets */; };
 		16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */; };
+		167F70A72882E111000A8D20 /* ProjectsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F70A62882E111000A8D20 /* ProjectsViewModel.swift */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
@@ -77,6 +78,7 @@
 		16255A63286A51FA008BBA05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16255A66286A51FA008BBA05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		16255A6E286B5B06008BBA05 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
+		167F70A62882E111000A8D20 /* ProjectsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModel.swift; sourceTree = "<group>"; };
 		169DFCB3286DC3E100B50C3B /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				16EBB070286B992C00199098 /* ProjectsView.swift */,
+				167F70A62882E111000A8D20 /* ProjectsViewModel.swift */,
 				169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */,
 				169DFCBB286F508600B50C3B /* EditProjectView.swift */,
 				169DFCB3286DC3E100B50C3B /* ItemRowView.swift */,
@@ -484,6 +487,7 @@
 				16EBB06F286B935F00199098 /* HomeView.swift in Sources */,
 				16255A60286A51F6008BBA05 /* YourPianoApp.swift in Sources */,
 				16EBB073286C719F00199098 /* Item-CoreDataHelpers.swift in Sources */,
+				167F70A72882E111000A8D20 /* ProjectsViewModel.swift in Sources */,
 				16EB51D3286CBB9900CE7FC6 /* EditItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
