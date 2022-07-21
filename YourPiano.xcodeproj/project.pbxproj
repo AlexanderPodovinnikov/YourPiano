@@ -24,6 +24,7 @@
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
 		169DFCBA286F371300B50C3B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 169DFCB9286F371300B50C3B /* Colors.xcassets */; };
 		169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCBB286F508600B50C3B /* EditProjectView.swift */; };
+		16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */; };
 		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
 		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
 		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
@@ -86,6 +87,7 @@
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		169DFCB9286F371300B50C3B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		169DFCBB286F508600B50C3B /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
+		16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowViewModel.swift; sourceTree = "<group>"; };
 		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
 		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */,
 				169DFCBB286F508600B50C3B /* EditProjectView.swift */,
 				169DFCB3286DC3E100B50C3B /* ItemRowView.swift */,
+				16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */,
 				16EB51D2286CBB9900CE7FC6 /* EditItemView.swift */,
 				16EC739228730A5800468007 /* SelectSomethingView.swift */,
 			);
@@ -490,6 +493,7 @@
 				16EC73952873435D00468007 /* Bundle-Decodable.swift in Sources */,
 				16EBB06F286B935F00199098 /* HomeView.swift in Sources */,
 				16255A60286A51F6008BBA05 /* YourPianoApp.swift in Sources */,
+				16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */,
 				16EBB073286C719F00199098 /* Item-CoreDataHelpers.swift in Sources */,
 				167F70A72882E111000A8D20 /* ProjectsViewModel.swift in Sources */,
 				16EB51D3286CBB9900CE7FC6 /* EditItemView.swift in Sources */,

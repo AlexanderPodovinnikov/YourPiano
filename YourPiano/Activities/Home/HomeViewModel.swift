@@ -30,6 +30,9 @@ extension HomeView {
 
     /// An object to manipulate data, presented in Home View.
     class ViewModel: ObservableObject {
+
+        // To make one generic class instead of this two!
+
         // swiftlint:disable:next nesting
         class ProjectsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
             let parent: ViewModel
@@ -132,16 +135,6 @@ extension HomeView {
                 print("Failed to fetch initial data.")
             }
         }
-
-        // Added due a glitch: when project changes, items array doesn't reflect this - fixed!
-//        func refetchItemsOnSomeGlitch() {
-//            do {
-//                try itemsController.performFetch()
-//                items = itemsController.fetchedObjects ?? []
-//            } catch {
-//                    print("Failed to fetch new data.")
-//            }
-//        }
 
         /// Adds sample data for testing and preview
         func addSampleData() {

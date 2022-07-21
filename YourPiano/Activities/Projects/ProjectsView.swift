@@ -11,16 +11,16 @@ import SwiftUI
 /// list of projects, each - with list of own items
 struct ProjectsView: View {
     @StateObject var viewModel: ViewModel
-    /// Boolean to bind with ActionSheet that shows sorting options
+    /// A boolean to bind with ActionSheet that shows sorting options.
     @State private var showingSortOrder = false
-    /// a tag to remember which tab was selected when the app went into the background or was closed
+    /// A tag to remember which tab was selected when the app went into the background or was closed.
     static let openTag: String? = "Open"
-    /// a tag to remember which tab was selected when the app went into the background or was closed
+    /// A tag to remember which tab was selected when the app went into the background or was closed.
     static let closedTag: String? = "Completed"
 
-    /// Initializes View either for open projects, or for closed ones
+    /// Initializes View either for open projects, or for closed ones.
     /// - Parameter showClosedProjects: if true - only closed projects will be listed,
-    /// if false - View will show only open projects
+    /// if false - View will show only open projects.
     init(dataController: DataController, showClosedProjects: Bool) {
         let viewModel = ViewModel(
             dataController: dataController,

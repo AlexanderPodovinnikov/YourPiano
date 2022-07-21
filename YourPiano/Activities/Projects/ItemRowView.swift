@@ -8,49 +8,35 @@
 import SwiftUI
 
 // All this stuff is needed for having an @ObservedObject
-// - that forces the View to refresh when objectWillChange event occurs
+// - that forces the View to refresh when objectWillChange event occurs????
 
 /// View that presents item in ProjectView and listens
 /// for changes to the  item's attributes to reflect them immediately.
 struct ItemRowView: View {
-    @ObservedObject var project: Project
+    @StateObject var viewModel: ViewModel
     @ObservedObject var item: Item
 
-    /// label for accessibility text
-    var itemLabel: Text {
-        if item.completed {
-            return Text("\(item.itemTitle), completed.")
-        } else if item.priority == 3 {
-            return Text("\(item.itemTitle), high priority.")
-        } else {
-            return Text(item.itemTitle)
-        }
-    }
+    init(project: Project, item: Item) {
+        let viewModel = ViewModel(project: project, item: item)
+        _viewModel = StateObject(wrappedValue: viewModel)
 
-    var icon: some View {
-        if item.completed {
-            return Image(systemName: "checkmark.circle")
-                        .foregroundColor(Color(project.projectColor))
-        } else if item.priority == 3 {
-            return Image(systemName: "exclamationmark.triangle")
-                        .foregroundColor(Color(project.projectColor))
-        } else {
-            return Image(systemName: "checkmark.circle")
-                .foregroundColor(.clear)
-        }
-
+        self.item = item
     }
 
     var body: some View {
         NavigationLink(destination: EditItemView(item: item)) {
             Label {
-                Text(item.itemTitle)
+                Text(viewModel.title)
             } icon: {
-                icon
+                Image(systemName: viewModel.icon)
+// we can’t convert an optional string into a Color directly –
+// that initializer doesn’t exist. So we have to use optional map
+                    .foregroundColor(
+                        viewModel.color.map { Color($0) } ?? .clear
+                    )
             }
-
         }
-        .accessibilityLabel(itemLabel)
+        .accessibilityLabel(viewModel.itemLabel)
     }
 }
 
