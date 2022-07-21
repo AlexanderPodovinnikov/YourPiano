@@ -56,7 +56,11 @@ struct EditProjectView: View {
                 ) {
                     Button(project.closed ? "Reopen this section" : "Close this section") {
                         project.closed.toggle()
-                        // Home View doesn't know
+
+                        // poor temp solution for HomeView FRC to update items!!!
+                        for item in project.projectItems {
+                            item.completed = item.completed
+                        }
                     }
                     Button("Delete this section") {
                         showingDeleteConfirm.toggle()
@@ -94,7 +98,7 @@ struct EditProjectView: View {
         }
         .onTapGesture {
             self.color = item
-            update()
+            project.color = color
         }
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(
@@ -109,8 +113,6 @@ struct EditProjectView: View {
     func update() {
         project.title = title
         project.detail = detail
-        project.color = color
-
     }
 
     /// Deletes current project and dismisses the View

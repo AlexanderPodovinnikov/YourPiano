@@ -68,6 +68,8 @@ extension ProjectsView {
             let item = Item(context: dataController.container.viewContext)
             item.project = project
             item.creationDate = Date()
+            // Try to trigger FRC for items shown in Home View - it works!
+            item.completed = false
             dataController.save()
         }
 

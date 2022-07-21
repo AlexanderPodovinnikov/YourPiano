@@ -137,4 +137,24 @@ class YourPianoUITests: XCTestCase {
         app.buttons["Delete"].tap()
         XCTAssertEqual(app.tables.cells.count, 1, "There should be 1 row after deleting item.")
     }
+
+//    func testHomeViewNotBuggy() {
+//        // Go to Open Projects and add one project and one item.
+//        testAddingItemInsertsRow()
+//
+//        app.buttons["New Item"].tap()
+//        app.buttons["High"].tap()
+//        app.navigationBars.buttons.element(boundBy: 0).tap()
+//        app.buttons["Home"].tap()
+//
+//        XCTAssertTrue(app.buttons["New Item"].exists, "There should be one item in the list")
+//        XCTAssertTrue(app.textFields["1 Item"].exists, "There should be one project")
+//
+//        app.buttons["In progress"].tap()
+//        app.buttons["New Section"].tap()
+//        app.buttons["Close this section"].tap()
+//        app.buttons["Home"].tap()
+//
+//        XCTAssertEqual(app.tables.cells.count, 0, "There should be no projects and lists")
+//    }
 }

@@ -1,0 +1,152 @@
+//
+//  HomeViewModel.swift
+//  YourPiano
+//
+//  Created by Alex Po on 16.07.2022.
+//
+
+import Foundation
+import CoreData
+
+// Knowing bugs (iOS 15.5 Swift 5):
+// 1. Added item is not visible in the View until is edited - fixed by adding 'item.completed = false'
+// in ProjectViewModel method addItem(to:)
+//
+// 2. Changing project attributes such as "closed" or "color"
+// is not visible in items list without calling implemented
+// in ViewModel refetching method (deleted) - temporary solution:
+//
+// 'closed' issue fixed by adding 'item.completed = item.completed' for each project's item
+// in EditProjectView 'close' Button method - may be thrown out by the compiler during optimization.
+//
+// 'color' issue fixed by adding the observed property viewModel to ItemsListView. Property isn't used so...
+//
+// POSSIBLE FRC GLITCH SOLUTION: Apparently the problem is how FRC is
+// monitoring changes when predicate has a condition based on a relationship
+// but not an owned property. Try to add a property for Item entity(!) -
+// projectIsClosed and set this property from the projects side.
+
+extension HomeView {
+
+    /// An object to manipulate data, presented in Home View.
+    class ViewModel: ObservableObject {
+        // swiftlint:disable:next nesting
+        class ProjectsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
+            let parent: ViewModel
+
+            init(parent: ViewModel) {
+                self.parent = parent
+            }
+            func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+                if let newProjects = controller.fetchedObjects as? [Project] {
+                    parent.projects = newProjects
+                }
+            }
+        }
+        // swiftlint:disable:next nesting
+        class ItemsControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
+            let parent: ViewModel
+
+            init(parent: ViewModel) {
+                self.parent = parent
+            }
+            func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+                if let newItems = controller.fetchedObjects as? [Item] {
+                    parent.items = newItems
+                }
+            }
+        }
+
+        private let projectsController: NSFetchedResultsController<Project>
+        private let itemsController: NSFetchedResultsController<Item>
+        private var projectsControllerDelegate: ProjectsControllerDelegate?
+        private var itemsControllerDelegate: ItemsControllerDelegate?
+
+        /// An array of fetched projects
+        @Published var projects = [Project]()
+        /// An array of fetched 10 items of highest priority from open projects
+        @Published var items = [Item]()
+
+        var dataController: DataController
+
+        /// A slice, containing first 3 hi priority items
+        var upNext: ArraySlice<Item> {
+            items.prefix(3)
+        }
+
+        /// A slice, containing up to 7 more items from the fetch request results
+        var moreToExplore: ArraySlice<Item> {
+            items.dropFirst(3)
+        }
+
+        init(dataController: DataController) {
+            self.dataController = dataController
+
+            let projectRequest: NSFetchRequest<Project> = Project.fetchRequest()
+            projectRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Project.creationDate, ascending: false)]
+            projectRequest.predicate = NSPredicate(format: "closed = false")
+
+            projectsController = NSFetchedResultsController(
+                fetchRequest: projectRequest,
+                managedObjectContext: dataController.container.viewContext,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            // Construct a fetch request to show the 10 highest-priority,
+            // incomplete items from open projects.
+            let itemRequest: NSFetchRequest<Item> = Item.fetchRequest()
+
+            // itemRequest.predicate = NSPredicate(format: "completed = false AND project.closed = false")
+            // but I'v done it the hard way:
+            let completedPredicate = NSPredicate(format: "completed = false")
+            let openPredicate = NSPredicate(format: "project.closed = false")
+            let compoundPredicate = NSCompoundPredicate(
+                type: .and,
+                subpredicates: [completedPredicate, openPredicate]
+            )
+            itemRequest.predicate = compoundPredicate
+
+            itemRequest.sortDescriptors = [
+                NSSortDescriptor(keyPath: \Item.priority, ascending: false)
+            ]
+            itemRequest.fetchLimit = 10
+
+            itemsController = NSFetchedResultsController(
+                fetchRequest: itemRequest,
+                managedObjectContext: dataController.container.viewContext,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            projectsControllerDelegate = ProjectsControllerDelegate(parent: self)
+            projectsController.delegate = projectsControllerDelegate
+
+            itemsControllerDelegate = ItemsControllerDelegate(parent: self)
+            itemsController.delegate = itemsControllerDelegate
+
+            do {
+                try projectsController.performFetch()
+                try itemsController.performFetch()
+                projects = projectsController.fetchedObjects ?? []
+                items = itemsController.fetchedObjects ?? []
+            } catch {
+                print("Failed to fetch initial data.")
+            }
+        }
+
+        // Added due a glitch: when project changes, items array doesn't reflect this - fixed!
+//        func refetchItemsOnSomeGlitch() {
+//            do {
+//                try itemsController.performFetch()
+//                items = itemsController.fetchedObjects ?? []
+//            } catch {
+//                    print("Failed to fetch new data.")
+//            }
+//        }
+
+        /// Adds sample data for testing and preview
+        func addSampleData() {
+            dataController.deleteAll()
+            try? dataController.createSampleData()
+        }
+    }
+}
