@@ -33,7 +33,7 @@ struct ContentView: View {
                     Image(systemName: "checkmark")
                     Text("Completed")
                 }
-            AwardsView()
+            AwardsView(dataController: dataController)
                 .tag(AwardsView.tag)
                 .tabItem {
                     Image(systemName: "rosette")

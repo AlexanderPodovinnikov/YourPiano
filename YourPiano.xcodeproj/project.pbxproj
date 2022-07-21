@@ -25,6 +25,7 @@
 		169DFCBA286F371300B50C3B /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 169DFCB9286F371300B50C3B /* Colors.xcassets */; };
 		169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCBB286F508600B50C3B /* EditProjectView.swift */; };
 		16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */; };
+		16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */; };
 		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
 		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
 		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
@@ -88,6 +89,7 @@
 		169DFCB9286F371300B50C3B /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		169DFCBB286F508600B50C3B /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowViewModel.swift; sourceTree = "<group>"; };
+		16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsViewModel.swift; sourceTree = "<group>"; };
 		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
 		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				16EC73AE2874D0E200468007 /* Awards.json */,
 				16EC73982873531600468007 /* Award.swift */,
 				16EC739A287354B200468007 /* AwardsView.swift */,
+				16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */,
 			);
 			path = Awards;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				16EC739D2873793600468007 /* Color-Additions.swift in Sources */,
 				169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */,
 				16EBB06B286B632F00199098 /* DataController.swift in Sources */,
+				16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */,
 				16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */,
 				16EC73992873531600468007 /* Award.swift in Sources */,
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,

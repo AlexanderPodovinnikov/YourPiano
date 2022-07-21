@@ -13,7 +13,7 @@ import CoreData
 struct HomeView: View {
     @StateObject var viewModel: ViewModel
 
-    /// A tag to remember which tab was selected when the app went into the background or was closed.
+    /// A tag to remember which tab is selected when the app went into the background or was closed.
     static let tag: String? = "Home"
 
     var projectRows: [GridItem] {

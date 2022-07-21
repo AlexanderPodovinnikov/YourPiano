@@ -13,9 +13,9 @@ struct ProjectsView: View {
     @StateObject var viewModel: ViewModel
     /// A boolean to bind with ActionSheet that shows sorting options.
     @State private var showingSortOrder = false
-    /// A tag to remember which tab was selected when the app went into the background or was closed.
+    /// A tag to remember which tab is selected when the app went into the background or was closed.
     static let openTag: String? = "Open"
-    /// A tag to remember which tab was selected when the app went into the background or was closed.
+    /// A tag to remember which tab is selected when the app went into the background or was closed.
     static let closedTag: String? = "Completed"
 
     /// Initializes View either for open projects, or for closed ones.

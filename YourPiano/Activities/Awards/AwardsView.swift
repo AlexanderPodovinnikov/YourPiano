@@ -10,13 +10,21 @@ import SwiftUI
 /// A grid with all possible awards that shows small description
 /// of each award and which ones were opened by user
 struct AwardsView: View {
-    @EnvironmentObject var dataController: DataController
+//    @EnvironmentObject var dataController: DataController
+
+    @StateObject var viewModel: ViewModel
     @State private var selectedAward = Award.example
     @State private var showingAwardDetails = false
 
+    /// A tag to remember which tab is selected when the app went into the background or was closed.
     static let tag: String? = "Awards"
     var columns: [GridItem] {
         [GridItem(.adaptive(minimum: 100, maximum: 100))]
+    }
+
+    init(dataController: DataController) {
+        let viewModel = ViewModel(dataController: dataController)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -34,17 +42,12 @@ struct AwardsView: View {
                                 .padding()
                                 .frame(width: 100, height: 100)
                                 .foregroundColor(
-                                    dataController.hasEarned(award: item)
-                                    ? Color(item.color)
-                                    : .secondary.opacity(0.5)
+                                    viewModel.color(for: item).map { Color($0) }
+                                    ?? .secondary.opacity(0.5)
                                 )
                         }
                         .accessibilityLabel(
-                            Text(
-                                dataController.hasEarned(award: item)
-                                ? "Unlocked \(item.name)"
-                                : "Locked"
-                            )
+                            Text(viewModel.label(for: item))
                         )
                         .accessibilityHint(Text(item.description))
                     }
@@ -57,7 +60,7 @@ struct AwardsView: View {
     /// Shows the name of the award, whether it was opened, and the conditions for opening
     /// - Returns: Alert with matching text
     func getAwardAlert() -> Alert {
-        if dataController.hasEarned(award: selectedAward) {
+        if viewModel.hasEarned(award: selectedAward) {
             return Alert(title: Text("Unlocked \(selectedAward.name)"),
                          message: Text(selectedAward.description),
                          dismissButton: .default(Text("OK"))
@@ -75,7 +78,7 @@ struct AwardsView_Previews: PreviewProvider {
     static var dataController = DataController.preview
 
     static var previews: some View {
-        AwardsView()
+        AwardsView(dataController: dataController)
             .environmentObject(dataController)
 
     }
