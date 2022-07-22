@@ -26,6 +26,7 @@
 		169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCBB286F508600B50C3B /* EditProjectView.swift */; };
 		16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */; };
 		16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */; };
+		16C16411288AF5E6002A56B0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C16410288AF5E6002A56B0 /* CloudKit.framework */; };
 		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
 		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
 		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
@@ -90,6 +91,7 @@
 		169DFCBB286F508600B50C3B /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowViewModel.swift; sourceTree = "<group>"; };
 		16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsViewModel.swift; sourceTree = "<group>"; };
+		16C16410288AF5E6002A56B0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
 		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C16411288AF5E6002A56B0 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +252,7 @@
 				1600B66C287DBA2F0081F99D /* YourPianoTests */,
 				16E423F728809A860032C4DF /* YourPianoUITests */,
 				16255A5D286A51F6008BBA05 /* Products */,
+				16C1640F288AF5E6002A56B0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -283,6 +287,14 @@
 				16255A66286A51FA008BBA05 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		16C1640F288AF5E6002A56B0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16C16410288AF5E6002A56B0 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		16E423EB2880245C0032C4DF /* TestFixtures */ = {

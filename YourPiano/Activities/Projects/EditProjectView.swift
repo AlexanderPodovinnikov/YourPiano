@@ -54,14 +54,9 @@ struct EditProjectView: View {
                         "Closing a section moves it from the Open to Completed tab; deleting it removes the section completely."
                     ) // swiftlint:disable:previous line_length
                 ) {
-                    Button(project.closed ? "Reopen this section" : "Close this section") {
-                        project.closed.toggle()
+                    Button(project.closed ? "Reopen this section" : "Close this section",
+                           action: toggleProjectClose)
 
-                        // poor temp solution for HomeView FRC to update items!!!
-                        for item in project.projectItems {
-                            item.completed = item.completed
-                        }
-                    }
                     Button("Delete this section") {
                         showingDeleteConfirm.toggle()
                     }
@@ -98,7 +93,7 @@ struct EditProjectView: View {
         }
         .onTapGesture {
             self.color = item
-            project.color = color
+            update()
         }
         .accessibilityElement(children: .ignore)
         .accessibilityAddTraits(
@@ -113,12 +108,26 @@ struct EditProjectView: View {
     func update() {
         project.title = title
         project.detail = detail
+        project.color = color
     }
 
     /// Deletes current project and dismisses the View
     func delete() {
         dataController.delete(project)
         presentationMode.wrappedValue.dismiss()
+    }
+
+    /// Closes a project if it was open and vice-verse
+    func toggleProjectClose() {
+        project.closed.toggle()
+
+        // poor temp solution for HomeView FRC to update items!!!
+        for item in project.projectItems {
+            item.completed = item.completed
+        }
+        if project.closed {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
     }
 }
 
