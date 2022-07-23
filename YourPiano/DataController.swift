@@ -7,6 +7,7 @@
 
 import CoreData
 import SwiftUI
+import CoreSpotlight
 
 /// An environment singleton responsible for managing Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
@@ -91,6 +92,13 @@ class DataController: ObservableObject {
     }
 
     func delete(_ object: NSManagedObject) {
+        let id = object.objectID.uriRepresentation().absoluteString
+
+        if object is Item {
+            CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
+        } else {
+            CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [id])
+        }
         container.viewContext.delete(object)
     }
 
@@ -132,6 +140,38 @@ class DataController: ObservableObject {
         default:
             return false
         }
+    }
+
+    /// Creates a Spotlight record for an item, sends it toSpotlight for indexing and saves an item.
+    /// - Parameter item: An item to store and indexing in Spotlight.
+    func update(_ item: Item) {
+        let itemID = item.objectID.uriRepresentation().absoluteString
+        let projectID = item.project?.objectID.uriRepresentation().absoluteString
+
+        let attributeSet = CSSearchableItemAttributeSet(contentType: .text)
+        attributeSet.title = item.title
+        attributeSet.contentDescription = item.detail
+
+        let searchableItem = CSSearchableItem(
+            uniqueIdentifier: itemID,
+            domainIdentifier: projectID,
+            attributeSet: attributeSet
+        )
+
+        CSSearchableIndex.default().indexSearchableItems([searchableItem])
+
+        save()
+    }
+
+    /// Returns an item by its identifier provided by Spotlight
+    /// - Parameter uniqueIdentifier: A Spotlight identifier of a searched item
+    /// - Returns: an instance of a searched item
+    func item(with uniqueIdentifier: String) -> Item? {
+        guard let url = URL(string: uniqueIdentifier) else { return nil }
+        guard let id = container.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url) else {
+            return nil
+        }
+        return try? container.viewContext.existingObject(with: id) as? Item
     }
 
     // preview data

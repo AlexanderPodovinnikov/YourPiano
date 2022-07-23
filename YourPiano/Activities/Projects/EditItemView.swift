@@ -50,7 +50,7 @@ struct EditItemView: View {
             }
         }
         .navigationTitle("Edit Item")
-        .onDisappear(perform: dataController.save)
+        .onDisappear(perform: save)
     }
     /// Updates item's title, detail, priority and completed attribute to their actual values.
     func update() {
@@ -59,6 +59,12 @@ struct EditItemView: View {
         item.detail = detail
         item.priority = Int16(priority)
         item.completed = completed
+    }
+    // We only have to call the dataController.update method once -
+    // when we're about to finish editing an item, so we don't re-index items
+    // as soon as they changed a single character on the screen.
+    func save() {
+        dataController.update(item)
     }
 }
 

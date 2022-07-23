@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreSpotlight
 
 struct ContentView: View {
     @EnvironmentObject var dataController: DataController
@@ -40,8 +41,16 @@ struct ContentView: View {
                     Text("Awards")
                 }
         }
+        .onContinueUserActivity(CSSearchableItemActionType, perform: moveHome)
+    }
+
+    /// Moves us on the Home tab when the app was launched by user activity
+    /// - Parameter input: Any NSUserActivity object
+    func moveHome(_ input: Any) {
+        selectedView = HomeView.tag
     }
 }
+
 struct ContentView_Previews: PreviewProvider {
     static var dataController = DataController.preview
     static var previews: some View {

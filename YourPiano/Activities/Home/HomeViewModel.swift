@@ -70,6 +70,9 @@ extension HomeView {
         /// An array of fetched 10 items of highest priority from open projects
         @Published var items = [Item]()
 
+        /// An item we selected outside the app, e.g. in Spotlight results
+        @Published var selectedItem: Item?
+
         var dataController: DataController
 
         /// A slice, containing first 3 hi priority items
@@ -134,6 +137,12 @@ extension HomeView {
             } catch {
                 print("Failed to fetch initial data.")
             }
+        }
+
+        /// Wrapper for dataController.item(with:) method.
+        /// - Parameter identifier: An identifier for searched item provided by Spotlight
+        func selectItem(with identifier: String) {
+            selectedItem = dataController.item(with: identifier)
         }
 
         /// Adds sample data for testing and preview

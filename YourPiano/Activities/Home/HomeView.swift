@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import CoreSpotlight
 
 /// View that represents open projects in horizontal scroll view,
 /// and 10 incomplete highest-priority items from open projects
@@ -54,12 +55,29 @@ struct HomeView: View {
                     }
                     .padding(.horizontal)
                 }
+                // Will show edit view for selected item:
+                if let item = viewModel.selectedItem { // we'v got an item from the search result
+                    NavigationLink(
+                        destination: EditItemView(item: item),
+                        tag: item,
+                        selection: $viewModel.selectedItem,
+                        label: EmptyView.init
+                    ).id(item)
+                }
             }
             .navigationTitle("Home")
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .toolbar {
                 Button("Add Data", action: viewModel.addSampleData)
             }
+            .onContinueUserActivity(CSSearchableItemActionType, perform: loadSpotlightItem)
+        }
+    }
+    /// Loads an item that was selected by user in Spotlight results.
+    func loadSpotlightItem(_ userActivity: NSUserActivity) {
+        if let uniqueIdentifier =
+                userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+            viewModel.selectItem(with: uniqueIdentifier)
         }
     }
 }
