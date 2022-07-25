@@ -12,20 +12,27 @@ struct EditProjectView: View {
 
     /// Current project.
     let project: Project
+
     /// Environment variable to control View dismiss.
     @Environment(\.presentationMode) var presentationMode
 
-    /// Boolean to bind with deletion alert.
-    @State private var showingDeleteConfirm = false
-
     @EnvironmentObject var dataController: DataController
 
+    @State private var showingNotificationsError = false
+
+    @State private var showingDeleteConfirm = false
     /// Property to store project title
     @State private var title: String
     /// Property to store project detail
     @State private var detail: String
     /// Property to store project color
     @State private var color: String
+
+    /// A flag showing whether to remind user or not.
+    @State private var remindMe: Bool
+
+    /// Time to show  notification
+    @State private var reminderTime: Date
 
     let colorColumns = [GridItem(.adaptive(minimum: 44))]
 
@@ -35,6 +42,14 @@ struct EditProjectView: View {
         _title = State(wrappedValue: project.projectTitle)
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
+
+        if let projectReminderTime = project.reminderTime {
+            _remindMe = State(wrappedValue: true)
+            _reminderTime = State(wrappedValue: projectReminderTime)
+        } else {
+            _remindMe = State(wrappedValue: false)
+            _reminderTime = State(wrappedValue: Date())
+        }
     }
 
     var body: some View {
@@ -48,20 +63,28 @@ struct EditProjectView: View {
                     ForEach(Project.colors, id: \.self, content: colorButton)
                 }
                 .padding(.vertical)
-
-                Section(
-                    footer: Text(
-                        "Closing a section moves it from the Open to Completed tab; deleting it removes the section completely."
-                    ) // swiftlint:disable:previous line_length
-                ) {
-                    Button(project.closed ? "Reopen this section" : "Close this section",
-                           action: toggleProjectClose)
-
-                    Button("Delete this section") {
-                        showingDeleteConfirm.toggle()
-                    }
-                    .accentColor(.red)
+            }
+            Section(header: Text("Section reminders")) {
+                Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
+                if remindMe {
+                    DatePicker("Reminder time",
+                               selection: $reminderTime.onChange(update),
+                               displayedComponents: .hourAndMinute
+                    )
                 }
+            }
+            Section(
+                footer: Text(
+                    "Closing a section moves it from the Open to Completed tab; deleting it removes the section completely."
+                ) // swiftlint:disable:previous line_length
+            ) {
+                Button(project.closed ? "Reopen this section" : "Close this section",
+                       action: toggleProjectClose)
+
+                Button("Delete this section") {
+                    showingDeleteConfirm.toggle()
+                }
+                .accentColor(.red)
             }
         }
         .navigationTitle("Edit Section")
@@ -73,6 +96,14 @@ struct EditProjectView: View {
                 primaryButton: .default(Text("Delete"), action: delete),
                 secondaryButton: .cancel()
             )
+        }
+        .alert(isPresented: $showingNotificationsError) {
+            Alert(
+                title: Text("OOPS_!"),
+                message: Text("NOTIFICATION_PROBLEM_MSG"),
+                primaryButton: .default(Text("CHECK_SETTINGS"),
+                action: showAppSettings),
+                secondaryButton: .cancel())
         }
     }
 
@@ -104,11 +135,27 @@ struct EditProjectView: View {
         .accessibilityLabel(LocalizedStringKey(item))
     }
 
-    /// Updates project's title, detail and color to their actual values
+    /// Updates project's title, detail and color to their actual values,
+    /// updates reminders time and tries to set reminders or shows alert
+    /// if notifications error occurred.
     func update() {
         project.title = title
         project.detail = detail
         project.color = color
+
+        if remindMe {
+            project.reminderTime = reminderTime
+            dataController.addReminders(for: project) { success in
+                if !success {
+                    project.reminderTime = nil
+                    remindMe = false
+                    showingNotificationsError = true
+                }
+            }
+        } else {
+            project.reminderTime = nil
+            dataController.removeReminders(for: project)
+        }
     }
 
     /// Deletes current project and dismisses the View
@@ -127,6 +174,15 @@ struct EditProjectView: View {
         }
         if project.closed {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+    }
+
+    private func showAppSettings() {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl)
         }
     }
 }
