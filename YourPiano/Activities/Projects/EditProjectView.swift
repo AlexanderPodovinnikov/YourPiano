@@ -66,6 +66,14 @@ struct EditProjectView: View {
             }
             Section(header: Text("Section reminders")) {
                 Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
+                    .alert(isPresented: $showingNotificationsError) {
+                        Alert(
+                            title: Text("OOPS_!"),
+                            message: Text("NOTIFICATION_PROBLEM_MSG"),
+                            primaryButton: .default(Text("CHECK_SETTINGS"),
+                            action: showAppSettings),
+                            secondaryButton: .cancel())
+                    }
                 if remindMe {
                     DatePicker("Reminder time",
                                selection: $reminderTime.onChange(update),
@@ -96,14 +104,6 @@ struct EditProjectView: View {
                 primaryButton: .default(Text("Delete"), action: delete),
                 secondaryButton: .cancel()
             )
-        }
-        .alert(isPresented: $showingNotificationsError) {
-            Alert(
-                title: Text("OOPS_!"),
-                message: Text("NOTIFICATION_PROBLEM_MSG"),
-                primaryButton: .default(Text("CHECK_SETTINGS"),
-                action: showAppSettings),
-                secondaryButton: .cancel())
         }
     }
 

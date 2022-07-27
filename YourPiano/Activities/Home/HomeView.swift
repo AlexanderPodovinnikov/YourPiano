@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 import CoreSpotlight
 
+// BUG - more than 10 items are shown!!!
+
 /// View that represents open projects in horizontal scroll view,
 /// and 10 incomplete highest-priority items from open projects
 struct HomeView: View {
@@ -68,7 +70,7 @@ struct HomeView: View {
             .navigationTitle("Home")
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .toolbar {
-                Button("Add Data", action: viewModel.addSampleData)
+                Button("Delete All", action: viewModel.deleteAll)
             }
             .onContinueUserActivity(CSSearchableItemActionType, perform: loadSpotlightItem)
         }

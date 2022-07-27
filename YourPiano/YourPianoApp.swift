@@ -10,10 +10,17 @@ import SwiftUI
 @main
 struct YourPianoApp: App {
     @StateObject var dataController: DataController
+    @StateObject var unlockManager: UnlockManager
+
+// We need two StateObjects, one of which depends on the other,
+// so we only have one way to do this - in an initializer.
 
     init() {
         let dataController = DataController()
+        let unlockManager = UnlockManager(dataController: dataController)
+
         _dataController = StateObject(wrappedValue: dataController)
+        _unlockManager = StateObject(wrappedValue: unlockManager)
     }
 
     var body: some Scene {
@@ -21,8 +28,9 @@ struct YourPianoApp: App {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
+                .environmentObject(unlockManager)
 
-            // Save all data when moved to background!
+            // Saves all data when moved to background!
             // Use this rather than
             // scene phase so we can port to macOS, where scene
             // phase won't detect our app losing focus.

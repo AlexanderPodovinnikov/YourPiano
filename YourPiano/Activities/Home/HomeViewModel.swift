@@ -150,5 +150,9 @@ extension HomeView {
             dataController.deleteAll()
             try? dataController.createSampleData()
         }
+
+        func deleteAll() {
+            dataController.deleteAll()
+        }
     }
 }

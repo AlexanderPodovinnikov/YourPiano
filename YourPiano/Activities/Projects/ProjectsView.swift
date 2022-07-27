@@ -108,6 +108,9 @@ struct ProjectsView: View {
                 addProjectToolbarItem
                 sortOrderToolbarItem
             }
+            .sheet(isPresented: $viewModel.showingUnlockView) {
+                UnlockView()
+            }
             SelectSomethingView()
         }
     }

@@ -30,12 +30,27 @@ class DataController: ObservableObject {
     /// The lone CloudKit container used to store all our data.
     let container: NSPersistentCloudKitContainer
 
+    /// The UserDefaults suite as a local property
+    let defaults: UserDefaults
+
+    /// Loads and saves whether our unlock has been purchased.
+    var fullVersionUnlocked: Bool {
+        get {
+            defaults.bool(forKey: "fullVersionUnlocked")
+        }
+        set {
+            defaults.set(newValue, forKey: "fullVersionUnlocked")
+        }
+    }
+
     /// Initializes a data controller, either in memory (for  testing and previewing),
     /// or on permanent storage.
     /// 
     /// Defaults to permanent storage.
     /// - Parameter inMemory: Whether to store this data in temporary memory or not.
-    init(inMemory: Bool = false) {
+    /// - Parameter defaults: The UserDefaults suite where user data should be stored.
+    init(inMemory: Bool = false, defaults: UserDefaults = .standard) {
+        self.defaults = defaults
         container = NSPersistentCloudKitContainer(name: "Main", managedObjectModel: Self.model)
 
         // Create in-memory database by writing to /dev/null
@@ -98,11 +113,15 @@ class DataController: ObservableObject {
             CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
         } else {
             CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [id])
+            if let deprecatedProject = object as? Project {
+                removeReminders(for: deprecatedProject)
+            }
         }
         container.viewContext.delete(object)
     }
 
-    // for testing
+    // for testing only. It's buggy - all deleted staff still shown until reopening the app
+    // also i don't know what happens with Spotlight searchable items
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Item.fetchRequest()
         let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)

@@ -22,6 +22,7 @@ extension ProjectsView {
 
         /// Selected sorting option
         @Published var sortOrder = Item.SortOrder.optimized
+        @Published var showingUnlockView = false
 
         /// If true - View will show only closed projects,
         /// if false - only open projects will be shown
@@ -88,10 +89,16 @@ extension ProjectsView {
 
         /// Creates a new project
         func addProject() {
-            let project = Project(context: dataController.container.viewContext)
-            project.closed = false
-            project.creationDate = Date()
-            dataController.save()
+            let canCreate = dataController.fullVersionUnlocked || dataController.count(for: Project.fetchRequest()) < 3
+
+            if canCreate {
+                let project = Project(context: dataController.container.viewContext)
+                project.closed = false
+                project.creationDate = Date()
+                dataController.save()
+            } else {
+                showingUnlockView.toggle()
+            }
         }
 
         // Remember 'projectsController.delegate = self'
