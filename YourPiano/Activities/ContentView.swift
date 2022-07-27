@@ -7,9 +7,15 @@
 
 import SwiftUI
 import CoreSpotlight
+import StoreKit
 
 struct ContentView: View {
     @EnvironmentObject var dataController: DataController
+
+    // Will work in iOS16. Use onAppear(perform: showRequestReview)
+    // with some condition call of requestReview() in the performing method:
+    // @Environment(\.requestReview) var requestReview
+
 
     /// This property is for remembering the last selected tab
     @SceneStorage("selectedView") var selectedView: String?
@@ -48,6 +54,12 @@ struct ContentView: View {
     /// - Parameter input: Any NSUserActivity object
     func moveHome(_ input: Any) {
         selectedView = HomeView.tag
+    }
+
+    // Try it in iOS16
+    func showRequestReview() {
+        // on some condition:
+        // requestReview()
     }
 }
 

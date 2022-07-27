@@ -19,7 +19,6 @@
 		16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */; };
 		167F70A72882E111000A8D20 /* ProjectsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F70A62882E111000A8D20 /* ProjectsViewModel.swift */; };
 		167F70A928832BDA000A8D20 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F70A828832BDA000A8D20 /* HomeViewModel.swift */; };
-		1691C6B42891408E00013450 /* DataController-RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6B32891408E00013450 /* DataController-RequestReview.swift */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
@@ -92,7 +91,6 @@
 		167F70A62882E111000A8D20 /* ProjectsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModel.swift; sourceTree = "<group>"; };
 		167F70A828832BDA000A8D20 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		1691C6B22890574D00013450 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = Configuration.storekit; path = YourPiano/Configuration/Configuration.storekit; sourceTree = "<group>"; };
-		1691C6B32891408E00013450 /* DataController-RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController-RequestReview.swift"; sourceTree = "<group>"; };
 		169DFCB3286DC3E100B50C3B /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				16EBB06A286B632F00199098 /* DataController.swift */,
-				1691C6B32891408E00013450 /* DataController-RequestReview.swift */,
 				16B0DFEB288D6BE5003F2F4F /* DataController-Notifications.swift */,
 				16EBB072286C719F00199098 /* Item-CoreDataHelpers.swift */,
 				16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */,
@@ -544,7 +541,6 @@
 				16EBB06B286B632F00199098 /* DataController.swift in Sources */,
 				16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */,
 				16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */,
-				1691C6B42891408E00013450 /* DataController-RequestReview.swift in Sources */,
 				16B0DFEC288D6BE5003F2F4F /* DataController-Notifications.swift in Sources */,
 				16EC73992873531600468007 /* Award.swift in Sources */,
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,

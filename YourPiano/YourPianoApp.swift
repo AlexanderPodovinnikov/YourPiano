@@ -29,7 +29,6 @@ struct YourPianoApp: App {
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
                 .environmentObject(unlockManager)
-                .onAppear(perform: dataController.appLaunched)
 
             // Saves all data when moved to background!
             // Use this rather than
