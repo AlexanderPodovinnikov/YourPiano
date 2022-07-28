@@ -50,8 +50,9 @@ struct ContentView: View {
                     Text("Awards")
                 }
         }
-        .onOpenURL(perform: openURL)
+        .onOpenURL(perform: openURL) // !!! Looks like it does nothing !!!
         .onContinueUserActivity(CSSearchableItemActionType, perform: moveHome)
+        .onContinueUserActivity(newSectionActivity, perform: createProject)
         .userActivity(newSectionActivity) { activity in
             activity.isEligibleForPrediction = true
             activity.title = "New Section"
@@ -70,6 +71,12 @@ struct ContentView: View {
     func openURL(_ url: URL) {
         selectedView = ProjectsView.openTag
         _ = dataController.addProject()
+    }
+
+    /// Creates a new project when user launches an activity
+    func createProject(_ userActivity: NSUserActivity) {
+        selectedView = ProjectsView.openTag
+        dataController.addProject()
     }
 
     // Try it in iOS16
