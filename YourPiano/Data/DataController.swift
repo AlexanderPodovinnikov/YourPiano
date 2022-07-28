@@ -161,6 +161,22 @@ class DataController: ObservableObject {
         }
     }
 
+    /// Adds a new project.
+    /// - Returns: True if adding project succeed, false if it failed.
+    @discardableResult func addProject() -> Bool {
+        let canCreate = fullVersionUnlocked || count(for: Project.fetchRequest()) < 3
+
+        if canCreate {
+            let project = Project(context: container.viewContext)
+            project.closed = false
+            project.creationDate = Date()
+            save()
+            return true
+        } else {
+            return false
+        }
+    }
+
     /// Creates a Spotlight record for an item, sends it toSpotlight for indexing and saves an item.
     /// - Parameter item: An item to store and indexing in Spotlight.
     func update(_ item: Item) {

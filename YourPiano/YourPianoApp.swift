@@ -11,6 +11,7 @@ import SwiftUI
 struct YourPianoApp: App {
     @StateObject var dataController: DataController
     @StateObject var unlockManager: UnlockManager
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
 // We need two StateObjects, one of which depends on the other,
 // so we only have one way to do this - in an initializer.

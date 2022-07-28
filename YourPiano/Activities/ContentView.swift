@@ -14,11 +14,14 @@ struct ContentView: View {
 
     // Will work in iOS16. Use onAppear(perform: showRequestReview)
     // with some condition call of requestReview() in the performing method:
-    // @Environment(\.requestReview) var requestReview
 
+    // @Environment(\.requestReview) var requestReview
 
     /// This property is for remembering the last selected tab
     @SceneStorage("selectedView") var selectedView: String?
+
+    // Custom activity
+    private let newSectionActivity = "com.Po.Alex.YourPiano.newSection"
 
     var body: some View {
         TabView(selection: $selectedView) {
@@ -47,13 +50,26 @@ struct ContentView: View {
                     Text("Awards")
                 }
         }
+        .onOpenURL(perform: openURL)
         .onContinueUserActivity(CSSearchableItemActionType, perform: moveHome)
+        .userActivity(newSectionActivity) { activity in
+            activity.isEligibleForPrediction = true
+            activity.title = "New Section"
+        }
     }
 
     /// Moves us on the Home tab when the app was launched by user activity
     /// - Parameter input: Any NSUserActivity object
     func moveHome(_ input: Any) {
         selectedView = HomeView.tag
+    }
+
+    // !!! Doesn't work for some reasons !!!
+    /// Opens list of open projects on user pressed shortcut,
+    /// and adds a new project to the list
+    func openURL(_ url: URL) {
+        selectedView = ProjectsView.openTag
+        _ = dataController.addProject()
     }
 
     // Try it in iOS16
