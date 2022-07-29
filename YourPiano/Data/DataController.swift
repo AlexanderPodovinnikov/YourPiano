@@ -8,6 +8,7 @@
 import CoreData
 import SwiftUI
 import CoreSpotlight
+import WidgetKit
 
 /// An environment singleton responsible for managing Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
@@ -56,6 +57,13 @@ class DataController: ObservableObject {
         // Create in-memory database by writing to /dev/null
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            // so if we’re using a real database we redirect Core Data to use our app group’s container
+            let groupID = "group.com.Po.Alex.YourPiano"
+
+            if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID) {
+                container.persistentStoreDescriptions.first?.url = url.appendingPathComponent("Main.sqlite")
+            }
         }
 
         container.loadPersistentStores { _, error in
@@ -103,9 +111,14 @@ class DataController: ObservableObject {
     func save() {
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
+            // And force all widgets to update.
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
+    /// Deletes given item or project.
+    /// - Parameters:
+    ///   - object: Item or Project to delete
     func delete(_ object: NSManagedObject) {
         let id = object.objectID.uriRepresentation().absoluteString
 
@@ -113,9 +126,11 @@ class DataController: ObservableObject {
             CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
         } else {
             CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [id])
-            if let deprecatedProject = object as? Project {
-                removeReminders(for: deprecatedProject)
-            }
+
+//            if let deprecatedProject = object as? Project {
+//                // code was changed to avoid dependencies when importing it in widgets target
+//                // removeReminders(for: deprecatedProject)
+//            }
         }
         container.viewContext.delete(object)
     }
@@ -137,28 +152,6 @@ class DataController: ObservableObject {
     /// - Returns: Number of elements
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
-    }
-
-    /// Checks if user has earned the award.
-    /// - Parameter award: The award to check
-    /// - Returns: True if the award was earned, or false - if not.
-    func hasEarned(award: Award) -> Bool {
-        switch award.criterion {
-
-        case "items":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        case "complete":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            fetchRequest.predicate = NSPredicate(format: "completed = true")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        default:
-            return false
-        }
     }
 
     /// Adds a new project.
@@ -207,6 +200,33 @@ class DataController: ObservableObject {
             return nil
         }
         return try? container.viewContext.existingObject(with: id) as? Item
+    }
+
+    /// Creates a request to fetch a limited number of top priority not completed items
+    /// from open projects.
+    /// - Parameter count: Number of  items you want to fetch.
+    /// - Returns: A fetch request.
+    func fetchRequestForTopItems(count: Int) -> NSFetchRequest<Item> {
+        let itemRequest: NSFetchRequest<Item> = Item.fetchRequest()
+
+        let completedPredicate = NSPredicate(format: "completed = false")
+            let openPredicate = NSPredicate(format: "project.closed = false")
+            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+            itemRequest.predicate = compoundPredicate
+
+            itemRequest.sortDescriptors = [
+                NSSortDescriptor(keyPath: \Item.priority, ascending: false)
+            ]
+
+            itemRequest.fetchLimit = count
+
+        return itemRequest
+    }
+
+    /// Fetches a result of given request.
+    /// - Returns: An array of T
+    func results<T: NSManagedObject>(for fetchRequest: NSFetchRequest<T>) -> [T] {
+        return (try? container.viewContext.fetch(fetchRequest)) ?? []
     }
 
     // preview data

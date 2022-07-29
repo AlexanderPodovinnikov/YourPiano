@@ -21,6 +21,15 @@
 		167F70A928832BDA000A8D20 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F70A828832BDA000A8D20 /* HomeViewModel.swift */; };
 		1691C6B62891951F00013450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6B52891951F00013450 /* AppDelegate.swift */; };
 		1691C6B82891953D00013450 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6B72891953D00013450 /* SceneDelegate.swift */; };
+		1691C6C02892F5B200013450 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1691C6BF2892F5B200013450 /* WidgetKit.framework */; };
+		1691C6C22892F5B200013450 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1691C6C12892F5B200013450 /* SwiftUI.framework */; };
+		1691C6C52892F5B200013450 /* YourPianoWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6C42892F5B200013450 /* YourPianoWidget.swift */; };
+		1691C6C72892F5B500013450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1691C6C62892F5B500013450 /* Assets.xcassets */; };
+		1691C6CB2892F5B500013450 /* YourPianoWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1691C6BE2892F5B200013450 /* YourPianoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1691C6D02892F71200013450 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB06A286B632F00199098 /* DataController.swift */; };
+		1691C6D22892F72A00013450 /* Item-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB072286C719F00199098 /* Item-CoreDataHelpers.swift */; };
+		1691C6D32892F74700013450 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16255A6D286B5B06008BBA05 /* Main.xcdatamodeld */; };
+		1691C6D72893011500013450 /* DataController-Awards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6D62893011500013450 /* DataController-Awards.swift */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
@@ -68,6 +77,13 @@
 			remoteGlobalIDString = 16255A5B286A51F6008BBA05;
 			remoteInfo = YourPiano;
 		};
+		1691C6C92892F5B500013450 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16255A54286A51F6008BBA05 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1691C6BD2892F5B200013450;
+			remoteInfo = YourPianoWidgetExtension;
+		};
 		16E423FC28809A860032C4DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 16255A54286A51F6008BBA05 /* Project object */;
@@ -76,6 +92,20 @@
 			remoteInfo = YourPiano;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1691C6CF2892F5B500013450 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1691C6CB2892F5B500013450 /* YourPianoWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1600B66B287DBA2F0081F99D /* YourPianoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourPianoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +125,14 @@
 		1691C6B22890574D00013450 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		1691C6B52891951F00013450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1691C6B72891953D00013450 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1691C6BE2892F5B200013450 /* YourPianoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YourPianoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1691C6BF2892F5B200013450 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1691C6C12892F5B200013450 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1691C6C42892F5B200013450 /* YourPianoWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourPianoWidget.swift; sourceTree = "<group>"; };
+		1691C6C62892F5B500013450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1691C6C82892F5B500013450 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1691C6D62893011500013450 /* DataController-Awards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController-Awards.swift"; sourceTree = "<group>"; };
+		1691C6D8289303C700013450 /* YourPianoWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YourPianoWidgetExtension.entitlements; sourceTree = "<group>"; };
 		169DFCB3286DC3E100B50C3B /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -154,6 +192,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				16C16411288AF5E6002A56B0 /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1691C6BB2892F5B200013450 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1691C6C22892F5B200013450 /* SwiftUI.framework in Frameworks */,
+				1691C6C02892F5B200013450 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +314,12 @@
 		16255A53286A51F6008BBA05 = {
 			isa = PBXGroup;
 			children = (
+				1691C6D8289303C700013450 /* YourPianoWidgetExtension.entitlements */,
 				16255A5E286A51F6008BBA05 /* YourPiano */,
 				16255A65286A51FA008BBA05 /* Preview Content */,
 				1600B66C287DBA2F0081F99D /* YourPianoTests */,
 				16E423F728809A860032C4DF /* YourPianoUITests */,
+				1691C6C32892F5B200013450 /* YourPianoWidget */,
 				16255A5D286A51F6008BBA05 /* Products */,
 				16C1640F288AF5E6002A56B0 /* Frameworks */,
 			);
@@ -282,6 +331,7 @@
 				16255A5C286A51F6008BBA05 /* YourPiano.app */,
 				1600B66B287DBA2F0081F99D /* YourPianoTests.xctest */,
 				16E423F628809A860032C4DF /* YourPianoUITests.xctest */,
+				1691C6BE2892F5B200013450 /* YourPianoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,6 +339,7 @@
 		16255A5E286A51F6008BBA05 /* YourPiano */ = {
 			isa = PBXGroup;
 			children = (
+				1691C6B92892F47500013450 /* Uncertain */,
 				1691C6B028903B2200013450 /* Data */,
 				1600B664287C85090081F99D /* Localization */,
 				1600B65E287C805F0081F99D /* Activities */,
@@ -297,8 +348,6 @@
 				16255A5F286A51F6008BBA05 /* YourPianoApp.swift */,
 				16255A63286A51FA008BBA05 /* Assets.xcassets */,
 				169DFCB9286F371300B50C3B /* Colors.xcassets */,
-				1691C6B52891951F00013450 /* AppDelegate.swift */,
-				1691C6B72891953D00013450 /* SceneDelegate.swift */,
 			);
 			path = YourPiano;
 			sourceTree = "<group>";
@@ -315,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				16EBB06A286B632F00199098 /* DataController.swift */,
+				1691C6D62893011500013450 /* DataController-Awards.swift */,
 				16B0DFEB288D6BE5003F2F4F /* DataController-Notifications.swift */,
 				16EBB072286C719F00199098 /* Item-CoreDataHelpers.swift */,
 				16EBB074286C738E00199098 /* Project-CoreDataHelpers.swift */,
@@ -333,10 +383,31 @@
 			path = Unlock;
 			sourceTree = "<group>";
 		};
+		1691C6B92892F47500013450 /* Uncertain */ = {
+			isa = PBXGroup;
+			children = (
+				1691C6B52891951F00013450 /* AppDelegate.swift */,
+				1691C6B72891953D00013450 /* SceneDelegate.swift */,
+			);
+			path = Uncertain;
+			sourceTree = "<group>";
+		};
+		1691C6C32892F5B200013450 /* YourPianoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1691C6C42892F5B200013450 /* YourPianoWidget.swift */,
+				1691C6C62892F5B500013450 /* Assets.xcassets */,
+				1691C6C82892F5B500013450 /* Info.plist */,
+			);
+			path = YourPianoWidget;
+			sourceTree = "<group>";
+		};
 		16C1640F288AF5E6002A56B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				16C16410288AF5E6002A56B0 /* CloudKit.framework */,
+				1691C6BF2892F5B200013450 /* WidgetKit.framework */,
+				1691C6C12892F5B200013450 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -388,15 +459,34 @@
 				16255A59286A51F6008BBA05 /* Frameworks */,
 				16255A5A286A51F6008BBA05 /* Resources */,
 				1600B65D287B66870081F99D /* SwiftLint */,
+				1691C6CF2892F5B500013450 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1691C6CA2892F5B500013450 /* PBXTargetDependency */,
 			);
 			name = YourPiano;
 			productName = YourPiano;
 			productReference = 16255A5C286A51F6008BBA05 /* YourPiano.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1691C6BD2892F5B200013450 /* YourPianoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1691C6CC2892F5B500013450 /* Build configuration list for PBXNativeTarget "YourPianoWidgetExtension" */;
+			buildPhases = (
+				1691C6BA2892F5B200013450 /* Sources */,
+				1691C6BB2892F5B200013450 /* Frameworks */,
+				1691C6BC2892F5B200013450 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YourPianoWidgetExtension;
+			productName = YourPianoWidgetExtension;
+			productReference = 1691C6BE2892F5B200013450 /* YourPianoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		16E423F528809A860032C4DF /* YourPianoUITests */ = {
 			isa = PBXNativeTarget;
@@ -433,6 +523,9 @@
 					16255A5B286A51F6008BBA05 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
+					1691C6BD2892F5B200013450 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 					16E423F528809A860032C4DF = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = 16255A5B286A51F6008BBA05;
@@ -456,6 +549,7 @@
 				16255A5B286A51F6008BBA05 /* YourPiano */,
 				1600B66A287DBA2F0081F99D /* YourPianoTests */,
 				16E423F528809A860032C4DF /* YourPianoUITests */,
+				1691C6BD2892F5B200013450 /* YourPianoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -480,6 +574,14 @@
 				16EC73AC2874D0E200468007 /* Awards.json in Resources */,
 				16255A64286A51FA008BBA05 /* Assets.xcassets in Resources */,
 				16EC73A62874CD6800468007 /* Localizable.stringsdict in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1691C6BC2892F5B200013450 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1691C6C72892F5B500013450 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,6 +655,7 @@
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,
 				16B0DFF3288E9DC4003F2F4F /* SKProduct-LocalizedPrice.swift in Sources */,
 				16EC73B12876E59D00468007 /* ItemsListView.swift in Sources */,
+				1691C6D72893011500013450 /* DataController-Awards.swift in Sources */,
 				16EC739128720DDD00468007 /* Sequence-Sorting.swift in Sources */,
 				16255A62286A51F6008BBA05 /* ContentView.swift in Sources */,
 				169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */,
@@ -565,6 +668,17 @@
 				16EBB073286C719F00199098 /* Item-CoreDataHelpers.swift in Sources */,
 				167F70A72882E111000A8D20 /* ProjectsViewModel.swift in Sources */,
 				16EB51D3286CBB9900CE7FC6 /* EditItemView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1691C6BA2892F5B200013450 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1691C6C52892F5B200013450 /* YourPianoWidget.swift in Sources */,
+				1691C6D02892F71200013450 /* DataController.swift in Sources */,
+				1691C6D22892F72A00013450 /* Item-CoreDataHelpers.swift in Sources */,
+				1691C6D32892F74700013450 /* Main.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +698,11 @@
 			isa = PBXTargetDependency;
 			target = 16255A5B286A51F6008BBA05 /* YourPiano */;
 			targetProxy = 1600B66F287DBA2F0081F99D /* PBXContainerItemProxy */;
+		};
+		1691C6CA2892F5B500013450 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1691C6BD2892F5B200013450 /* YourPianoWidgetExtension */;
+			targetProxy = 1691C6C92892F5B500013450 /* PBXContainerItemProxy */;
 		};
 		16E423FD28809A860032C4DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -778,6 +897,7 @@
 		16255A6B286A51FA008BBA05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YourPiano/Configuration/YourPiano.entitlements;
@@ -811,6 +931,7 @@
 		16255A6C286A51FA008BBA05 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YourPiano/Configuration/YourPiano.entitlements;
@@ -835,6 +956,64 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Po.Alex.YourPiano;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1691C6CD2892F5B500013450 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = YourPianoWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G6K748QD4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YourPianoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YourPianoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Po.Alex.YourPiano.YourPianoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1691C6CE2892F5B500013450 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = YourPianoWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8G6K748QD4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YourPianoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = YourPianoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Po.Alex.YourPiano.YourPianoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -901,6 +1080,15 @@
 			buildConfigurations = (
 				16255A6B286A51FA008BBA05 /* Debug */,
 				16255A6C286A51FA008BBA05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1691C6CC2892F5B500013450 /* Build configuration list for PBXNativeTarget "YourPianoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1691C6CD2892F5B500013450 /* Debug */,
+				1691C6CE2892F5B500013450 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

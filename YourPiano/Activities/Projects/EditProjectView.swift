@@ -158,8 +158,9 @@ struct EditProjectView: View {
         }
     }
 
-    /// Deletes current project and dismisses the View
+    /// Deletes current project, its reminders, and dismisses the View
     func delete() {
+        dataController.removeReminders(for: project)
         dataController.delete(project)
         presentationMode.wrappedValue.dismiss()
     }
