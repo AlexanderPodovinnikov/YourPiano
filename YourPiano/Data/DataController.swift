@@ -70,7 +70,7 @@ class DataController: ObservableObject {
             if let error = error {
                 fatalError("Fatal error loading store: \(error.localizedDescription)")
             }
-            
+
             // Check the box "Use with iCloud" in CoreData configuration
             // and enable this to sync data across all devices
             self.container.viewContext.automaticallyMergesChangesFromParent = true
@@ -130,25 +130,34 @@ class DataController: ObservableObject {
             CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
         } else {
             CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [id])
-
-//            if let deprecatedProject = object as? Project {
-//                // code was changed to avoid dependencies when importing it in widgets target
-//                // removeReminders(for: deprecatedProject)
-//            }
         }
         container.viewContext.delete(object)
     }
 
-    // for testing only. It's buggy - all deleted staff still shown until reopening the app
-    // also i don't know what happens with Spotlight searchable items
+    // Core Data runs the batch delete request on the persistent store,
+    // without updating the managed object context reading from that store.
+    // To fix this, we need a method, that gets the result of calling execute(),
+    // reads out the object IDs of the delete objects, then merges those into our live view context.
+
+    // deletes objects in right way correctly updates data context)
+    private func delete(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+
+        if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+            let changes = [NSDeletedObjectsKey: delete.result as? [NSManagedObjectID] ?? []]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [container.viewContext])
+        }
+
+    }
+    // For testing only,
+    // and I don't know what happens with Spotlight searchable items.
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Item.fetchRequest()
-        let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-        _ = try? container.viewContext.execute(batchDeleteRequest1)
+        delete(fetchRequest1)
 
         let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = Project.fetchRequest()
-        let batchDeleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
-        _ = try? container.viewContext.execute(batchDeleteRequest2)
+        delete(fetchRequest2)
     }
 
     /// Counts elements in a fetch request.
