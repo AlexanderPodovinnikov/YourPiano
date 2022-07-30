@@ -70,6 +70,7 @@ extension ProjectsView {
             item.project = project
             item.creationDate = Date()
             // Try to trigger FRC for items shown in Home View - it works!
+            item.priority = 2
             item.completed = false
             dataController.save()
         }

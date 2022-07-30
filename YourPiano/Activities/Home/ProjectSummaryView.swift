@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// !!! No items glitch !!!
+
 /// View that represents a summary of a project: its title, number of items and overall progress.
 struct ProjectSummaryView: View {
     @ObservedObject var project: Project

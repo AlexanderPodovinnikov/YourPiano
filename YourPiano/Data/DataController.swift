@@ -70,6 +70,10 @@ class DataController: ObservableObject {
             if let error = error {
                 fatalError("Fatal error loading store: \(error.localizedDescription)")
             }
+            
+            // Check the box "Use with iCloud" in CoreData configuration
+            // and enable this to sync data across all devices
+            self.container.viewContext.automaticallyMergesChangesFromParent = true
 
             #if DEBUG
             if CommandLine.arguments.contains("enable-testing") {
