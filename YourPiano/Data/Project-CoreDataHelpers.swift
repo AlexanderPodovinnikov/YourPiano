@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 extension Project {
 
@@ -29,7 +30,7 @@ extension Project {
         items?.allObjects as? [Item] ?? []
     }
 
-    /// Array of project items that is sorted i default order: by completion, priority, and creation date.
+    /// Array of project items that is sorted in default order: by completion, priority, and creation date.
     var projectItemsDefaultSorted: [Item] {
         projectItems.sorted { first, second in
             if !first.completed {
@@ -107,5 +108,36 @@ extension Project {
         case .title:
             return projectItems.sorted(by: \Item.itemTitle)
         }
+    }
+
+    /// Prepares CloudKit records for Project instance alongside with all  its items.
+    /// - Returns: An array of records containing basic information about the project and its items,
+    /// incl. a link for each item to its parent project.
+    func prepareCloudRecords() -> [CKRecord] {
+        let parentName = objectID.uriRepresentation().absoluteString
+        let parentID = CKRecord.ID(recordName: parentName)
+        let parent = CKRecord(recordType: "Project", recordID: parentID)
+
+        parent["title"] = projectTitle
+        parent["detail"] = projectDetail
+        parent["closed"] = closed
+        parent["owner"] = "AlexPo"
+
+        var records = projectItemsDefaultSorted.map { item -> CKRecord in
+            let childName = item.objectID.uriRepresentation().absoluteString
+            let childID = CKRecord.ID(recordName: childName)
+            let child = CKRecord(recordType: "Item", recordID: childID)
+
+            child["title"] = item.itemTitle
+            child["detail"] = item.itemDetail
+            child["completed"] = item.completed
+
+            // .deleteSelf = when the project is deleted, delete all the items too
+            child["project"] = CKRecord.Reference(recordID: parentID, action: .deleteSelf)
+
+            return child
+        }
+        records.append(parent)
+        return records
     }
 }

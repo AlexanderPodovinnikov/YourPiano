@@ -52,6 +52,10 @@
 		16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */; };
 		16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */; };
 		16C16411288AF5E6002A56B0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C16410288AF5E6002A56B0 /* CloudKit.framework */; };
+		16DA2F822896E1B20060AA22 /* SharedProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F812896E1B20060AA22 /* SharedProject.swift */; };
+		16DA2F842896E2DF0060AA22 /* SharedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F832896E2DF0060AA22 /* SharedItem.swift */; };
+		16DA2F862896E3C20060AA22 /* LoadStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F852896E3C20060AA22 /* LoadStates.swift */; };
+		16DA2F892896E6AD0060AA22 /* SharedProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */; };
 		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
 		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
 		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
@@ -160,6 +164,10 @@
 		16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowViewModel.swift; sourceTree = "<group>"; };
 		16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsViewModel.swift; sourceTree = "<group>"; };
 		16C16410288AF5E6002A56B0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		16DA2F812896E1B20060AA22 /* SharedProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedProject.swift; sourceTree = "<group>"; };
+		16DA2F832896E2DF0060AA22 /* SharedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedItem.swift; sourceTree = "<group>"; };
+		16DA2F852896E3C20060AA22 /* LoadStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadStates.swift; sourceTree = "<group>"; };
+		16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedProjectsView.swift; sourceTree = "<group>"; };
 		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
 		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
@@ -229,6 +237,7 @@
 		1600B65E287C805F0081F99D /* Activities */ = {
 			isa = PBXGroup;
 			children = (
+				16DA2F872896E52C0060AA22 /* Community */,
 				1691C6B128903C0100013450 /* Unlock */,
 				16255A61286A51F6008BBA05 /* ContentView.swift */,
 				1600B661287C815C0081F99D /* Awards */,
@@ -426,6 +435,17 @@
 				1691C6C12892F5B200013450 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		16DA2F872896E52C0060AA22 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				16DA2F812896E1B20060AA22 /* SharedProject.swift */,
+				16DA2F832896E2DF0060AA22 /* SharedItem.swift */,
+				16DA2F852896E3C20060AA22 /* LoadStates.swift */,
+				16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */,
+			);
+			path = Community;
 			sourceTree = "<group>";
 		};
 		16E423EB2880245C0032C4DF /* TestFixtures */ = {
@@ -657,6 +677,7 @@
 				16EC73B32876E8E200468007 /* ProjectSummaryView.swift in Sources */,
 				16B0DFF5288E9F78003F2F4F /* PurchaseButton.swift in Sources */,
 				16EBB071286B992D00199098 /* ProjectsView.swift in Sources */,
+				16DA2F842896E2DF0060AA22 /* SharedItem.swift in Sources */,
 				16EC739B287354B200468007 /* AwardsView.swift in Sources */,
 				16255A6F286B5B06008BBA05 /* Main.xcdatamodeld in Sources */,
 				167F70A928832BDA000A8D20 /* HomeViewModel.swift in Sources */,
@@ -676,7 +697,10 @@
 				16EC73B12876E59D00468007 /* ItemsListView.swift in Sources */,
 				1691C6D72893011500013450 /* DataController-Awards.swift in Sources */,
 				16EC739128720DDD00468007 /* Sequence-Sorting.swift in Sources */,
+				16DA2F892896E6AD0060AA22 /* SharedProjectsView.swift in Sources */,
+				16DA2F822896E1B20060AA22 /* SharedProject.swift in Sources */,
 				16255A62286A51F6008BBA05 /* ContentView.swift in Sources */,
+				16DA2F862896E3C20060AA22 /* LoadStates.swift in Sources */,
 				169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */,
 				16EC73952873435D00468007 /* Bundle-Decodable.swift in Sources */,
 				16B0DFEE288DD5AE003F2F4F /* UnlockManager.swift in Sources */,

@@ -236,7 +236,7 @@ class DataController: ObservableObject {
         return itemRequest
     }
 
-    /// Fetches a result of given request.
+    /// Fetches a result of given Core Data request.
     /// - Returns: An array of T
     func results<T: NSManagedObject>(for fetchRequest: NSFetchRequest<T>) -> [T] {
         return (try? container.viewContext.fetch(fetchRequest)) ?? []

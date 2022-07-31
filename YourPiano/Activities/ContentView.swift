@@ -49,6 +49,12 @@ struct ContentView: View {
                     Image(systemName: "rosette")
                     Text("Awards")
                 }
+            SharedProjectsView()
+                .tag(SharedProjectsView.tag)
+                .tabItem {
+                    Image(systemName: "person.3")
+                    Text("COMMUNITY")
+                }
         }
         .onOpenURL(perform: openURL) // !!! Looks like it does nothing !!!
         .onContinueUserActivity(CSSearchableItemActionType, perform: moveHome)

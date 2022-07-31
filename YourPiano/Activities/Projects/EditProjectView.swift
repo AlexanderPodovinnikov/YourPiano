@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 /// View to edit project attributes or to delete  project permanently
 struct EditProjectView: View {
@@ -96,6 +97,23 @@ struct EditProjectView: View {
             }
         }
         .navigationTitle("Edit Section")
+        .toolbar(content: {
+            Button {
+                let records = project.prepareCloudRecords()
+                let operation = CKModifyRecordsOperation(
+                    recordsToSave: records,
+                    recordIDsToDelete: nil
+                )
+                operation.modifyRecordsResultBlock = { result in
+                    if case .failure(let error) = result {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
+                CKContainer.default().publicCloudDatabase.add(operation)
+            } label: {
+                Label("UPLOAD_TO_ICLOUD", systemImage: "icloud.and.arrow.up")
+            }
+        })
         .onDisappear(perform: dataController.save)
         .alert(isPresented: $showingDeleteConfirm) {
             Alert(
