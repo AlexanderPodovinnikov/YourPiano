@@ -56,6 +56,7 @@
 		16DA2F842896E2DF0060AA22 /* SharedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F832896E2DF0060AA22 /* SharedItem.swift */; };
 		16DA2F862896E3C20060AA22 /* LoadStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F852896E3C20060AA22 /* LoadStates.swift */; };
 		16DA2F892896E6AD0060AA22 /* SharedProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */; };
+		16DA2F8D2897F8400060AA22 /* SharedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F8C2897F8400060AA22 /* SharedItemsView.swift */; };
 		16E423EA28801C2E0032C4DF /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E423E928801C2E0032C4DF /* ExtensionTests.swift */; };
 		16E423ED288024BF0032C4DF /* DecodableDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EC288024BF0032C4DF /* DecodableDictionary.json */; };
 		16E423EF288025610032C4DF /* DecodableString.json in Resources */ = {isa = PBXBuildFile; fileRef = 16E423EE288025610032C4DF /* DecodableString.json */; };
@@ -168,6 +169,7 @@
 		16DA2F832896E2DF0060AA22 /* SharedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedItem.swift; sourceTree = "<group>"; };
 		16DA2F852896E3C20060AA22 /* LoadStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadStates.swift; sourceTree = "<group>"; };
 		16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedProjectsView.swift; sourceTree = "<group>"; };
+		16DA2F8C2897F8400060AA22 /* SharedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedItemsView.swift; sourceTree = "<group>"; };
 		16E423E928801C2E0032C4DF /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		16E423EC288024BF0032C4DF /* DecodableDictionary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableDictionary.json; sourceTree = "<group>"; };
 		16E423EE288025610032C4DF /* DecodableString.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DecodableString.json; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				16DA2F832896E2DF0060AA22 /* SharedItem.swift */,
 				16DA2F852896E3C20060AA22 /* LoadStates.swift */,
 				16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */,
+				16DA2F8C2897F8400060AA22 /* SharedItemsView.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				16DA2F892896E6AD0060AA22 /* SharedProjectsView.swift in Sources */,
 				16DA2F822896E1B20060AA22 /* SharedProject.swift in Sources */,
 				16255A62286A51F6008BBA05 /* ContentView.swift in Sources */,
+				16DA2F8D2897F8400060AA22 /* SharedItemsView.swift in Sources */,
 				16DA2F862896E3C20060AA22 /* LoadStates.swift in Sources */,
 				169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */,
 				16EC73952873435D00468007 /* Bundle-Decodable.swift in Sources */,
