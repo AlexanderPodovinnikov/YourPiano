@@ -13,6 +13,7 @@ struct SharedProjectsView: View {
 
     @State private var projects = [SharedProject]()
     @State private var loadState = LoadState.inactive
+    @State private var cloudError: CloudError?
 
     var body: some View {
         NavigationView {
@@ -36,6 +37,12 @@ struct SharedProjectsView: View {
                 }
             }
             .navigationTitle("SHARED_PROJECTS")
+            .alert(item: $cloudError) { error in
+                Alert(
+                    title: Text("ERROR_ALERT"),
+                    message: Text(error.message)
+                )
+            }
         }
         .onAppear(perform: fetchSharedProjects)
     }
@@ -58,7 +65,7 @@ struct SharedProjectsView: View {
             switch recordResult {
 
             case .failure(let error):
-                print("Failed load record: \(error.localizedDescription)")
+                cloudError = error.getCloudKitError()
 
             case .success(let record):
                 let id = record.recordID.recordName

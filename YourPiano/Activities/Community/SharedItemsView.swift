@@ -9,15 +9,45 @@ import SwiftUI
 import CloudKit
 
 struct SharedItemsView: View {
+
+    @AppStorage("username") var username: String?
+
+    /// A Project, that was loaded from Cloud to investigate its items and comments
     let project: SharedProject
 
+    @State private var cloudError: CloudError?
     @State private var items = [SharedItem]()
-    @State private var loadState = LoadState.inactive
+    @State private var itemsLoadState = LoadState.inactive
+    @State private var messagesLoadState = LoadState.inactive
+    @State private var messages = [ChatMessage]()
+    @State private var showingSignIn = false
+    @State private var newChatText = ""
+
+    @ViewBuilder var messagesFooter: some View {
+        if username == nil {
+            Button("SIGN_IN_BTN", action: signIn)
+                .frame(maxWidth: .infinity)
+        } else {
+            VStack {
+                TextField("MESSAGE_PROMPT", text: $newChatText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textCase(nil)
+                Button(action: sendChatMessage) {
+                    Text("SEND_BTN")
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .background(.blue)
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .contentShape(Capsule())
+                }
+            }
+        }
+    }
 
     var body: some View {
         List {
             Section {
-                switch loadState {
+                switch itemsLoadState {
                 case .inactive, .loading:
                     ProgressView()
                 case .noResults:
@@ -34,15 +64,34 @@ struct SharedItemsView: View {
                     }
                 }
             }
+            Section(
+                header: Text("CHAT_ABOUT"),
+                footer: messagesFooter
+            ) {
+                ForEach(messages) { message in
+                    Text("\(Text(message.from).bold()): \(message.text)")
+                        .multilineTextAlignment(.leading)
+                }
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(project.title)
-        .onAppear(perform: fetchSharedItems)
+        .onAppear {
+            fetchSharedItems()
+            fetchChatMessages()
+        }
+        .sheet(isPresented: $showingSignIn, content: SignInView.init)
+        .alert(item: $cloudError) { error in
+            Alert(
+                title: Text("ERROR_ALERT"),
+                message: Text(error.message)
+            )
+        }
     }
 
     func fetchSharedItems() {
-        guard loadState == .inactive else { return }
-        loadState = .loading
+        guard itemsLoadState == .inactive else { return }
+        itemsLoadState = .loading
 
         let recordID = CKRecord.ID(recordName: project.id) // current project ref ID
         let reference = CKRecord.Reference(recordID: recordID, action: .none)
@@ -70,17 +119,77 @@ struct SharedItemsView: View {
                     completed: completed
                 )
                 items.append(sharedItem)
-                loadState = .success
+                itemsLoadState = .success
             } else if case .failure(let error) = recordResult {
-                print("Failed load record \(error.localizedDescription)")
+                print("Failed load item \(error.localizedDescription)")
             }
         }
         operation.queryResultBlock = { _ in
             if items.isEmpty {
-                loadState = .noResults
+                itemsLoadState = .noResults
             }
         }
         CKContainer.default().publicCloudDatabase.add(operation)
+    }
+
+    func fetchChatMessages() {
+        guard messagesLoadState == .inactive else { return }
+        messagesLoadState = .loading
+
+        let recordID = CKRecord.ID(recordName: project.id) // current project ref ID
+        let reference = CKRecord.Reference(recordID: recordID, action: .none)
+
+        let predicate = NSPredicate(format: "project == %@", reference)
+        let sortOrder = NSSortDescriptor(key: "creationDate", ascending: true)
+        let query = CKQuery(recordType: "Message", predicate: predicate)
+        query.sortDescriptors = [sortOrder]
+
+        let operation = CKQueryOperation(query: query)
+        operation.desiredKeys = ["from", "text"]
+
+        operation.recordMatchedBlock = { _, recordResult in
+            if let record = try? recordResult.get() {
+                let message = ChatMessage(from: record)
+                messages.append(message)
+                messagesLoadState = .success
+            } else if case .failure(let error) = recordResult {
+                print("Failed load message \(error.localizedDescription)")
+            }
+        }
+        operation.queryResultBlock = { _ in
+            if messages.isEmpty {
+                messagesLoadState = .noResults
+            }
+        }
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+
+    func signIn() {
+        showingSignIn = true
+    }
+
+    func sendChatMessage() {
+        let text = newChatText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard text.count > 2 else { return }
+        guard let username = username else { return }
+
+        let message = CKRecord(recordType: "Message")
+        message["from"] = username
+        message["text"] = text
+        let projectID = CKRecord.ID(recordName: project.id)
+        message["project"] = CKRecord.Reference(recordID: projectID, action: .deleteSelf)
+
+        let backupChatText = newChatText
+        newChatText = ""
+        CKContainer.default().publicCloudDatabase.save(message) { record, error in
+            if let error = error {
+                print(error.localizedDescription)
+                newChatText = backupChatText
+            } else if let record = record {
+                let newMessage = ChatMessage(from: record)
+                messages.append(newMessage)
+            }
+        }
     }
 }
 

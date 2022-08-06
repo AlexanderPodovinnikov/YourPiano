@@ -113,7 +113,7 @@ extension Project {
     /// Prepares CloudKit records for Project instance alongside with all  its items.
     /// - Returns: An array of records containing basic information about the project and its items,
     /// incl. a link for each item to its parent project.
-    func prepareCloudRecords() -> [CKRecord] {
+    func prepareCloudRecords(owner: String) -> [CKRecord] {
         let parentName = objectID.uriRepresentation().absoluteString
         let parentID = CKRecord.ID(recordName: parentName)
         let parent = CKRecord(recordType: "Project", recordID: parentID)
@@ -121,7 +121,7 @@ extension Project {
         parent["title"] = projectTitle
         parent["detail"] = projectDetail
         parent["closed"] = closed
-        parent["owner"] = "AlexPo"
+        parent["owner"] = owner
 
         var records = projectItemsDefaultSorted.map { item -> CKRecord in
             let childName = item.objectID.uriRepresentation().absoluteString
@@ -139,5 +139,25 @@ extension Project {
         }
         records.append(parent)
         return records
+    }
+
+    /// Checks if the project has been already loaded in the Cloud.
+    /// - Parameter completion: Handler to execute after check is done.
+    /// If the project already exists in the Cloud, that closure will be called with its parameter set to true.
+    func checkCloudStatus(_ completion: @escaping (Bool) -> Void) {
+        let name = objectID.uriRepresentation().absoluteString
+        let id = CKRecord.ID(recordName: name)
+        let operation = CKFetchRecordsOperation(recordIDs: [id])
+        operation.desiredKeys = ["recordID"]
+
+        operation.perRecordResultBlock = { _, result in
+            // swiftlint:disable:next empty_enum_arguments
+            if case .success(_) = result {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+        CKContainer.default().publicCloudDatabase.add(operation)
     }
 }

@@ -22,6 +22,10 @@ struct YourPianoApp: App {
 
         _dataController = StateObject(wrappedValue: dataController)
         _unlockManager = StateObject(wrappedValue: unlockManager)
+
+        #if targetEnvironment(simulator)
+        UserDefaults.standard.set("ALexPo", forKey: "username")
+        #endif
     }
 
     var body: some Scene {

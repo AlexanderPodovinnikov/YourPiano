@@ -10,29 +10,30 @@ import CloudKit
 
 /// View to edit project attributes or to delete  project permanently
 struct EditProjectView: View {
+    /// Indicates if a project already exists in the Cloud, or is absent, or is been checking.
+    enum CloudStatus {
+        case checking, exists, absent
+    }
 
     /// Current project.
     let project: Project
 
-    /// Environment variable to control View dismiss.
+    /// Valid username
+    @AppStorage("username") var username: String?
     @Environment(\.presentationMode) var presentationMode
-
     @EnvironmentObject var dataController: DataController
 
+    @State private var cloudError: CloudError?
+    @State private var showingSignIn = false
+    @State private var cloudStatus = CloudStatus.checking
     @State private var showingNotificationsError = false
-
     @State private var showingDeleteConfirm = false
-    /// Property to store project title
     @State private var title: String
-    /// Property to store project detail
     @State private var detail: String
-    /// Property to store project color
     @State private var color: String
 
-    /// A flag showing whether to remind user or not.
     @State private var remindMe: Bool
 
-    /// Time to show  notification
     @State private var reminderTime: Date
 
     let colorColumns = [GridItem(.adaptive(minimum: 44))]
@@ -59,6 +60,7 @@ struct EditProjectView: View {
                 TextField("Section name", text: $title.onChange(update))
                 TextField("Description of the section", text: $detail.onChange(update))
             }
+
             Section(header: Text("Custom section color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self, content: colorButton)
@@ -96,24 +98,23 @@ struct EditProjectView: View {
                 .accentColor(.red)
             }
         }
+        .sheet(isPresented: $showingSignIn, content: SignInView.init)
         .navigationTitle("Edit Section")
         .toolbar(content: {
-            Button {
-                let records = project.prepareCloudRecords()
-                let operation = CKModifyRecordsOperation(
-                    recordsToSave: records,
-                    recordIDsToDelete: nil
-                )
-                operation.modifyRecordsResultBlock = { result in
-                    if case .failure(let error) = result {
-                        print("Error: \(error.localizedDescription)")
-                    }
+            switch cloudStatus {
+            case .checking:
+                ProgressView()
+            case .exists:
+                Button(action: removeFromCloud) {
+                    Label("REMOVE_FROM_ICLOUD", systemImage: "icloud.slash")
                 }
-                CKContainer.default().publicCloudDatabase.add(operation)
-            } label: {
-                Label("UPLOAD_TO_ICLOUD", systemImage: "icloud.and.arrow.up")
+            case .absent:
+                Button(action: uploadToCloud) {
+                    Label("UPLOAD_TO_ICLOUD", systemImage: "icloud.and.arrow.up")
+                }
             }
         })
+        .onAppear(perform: updateCloudStatus)
         .onDisappear(perform: dataController.save)
         .alert(isPresented: $showingDeleteConfirm) {
             Alert(
@@ -121,6 +122,12 @@ struct EditProjectView: View {
                 message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
                 primaryButton: .default(Text("Delete"), action: delete),
                 secondaryButton: .cancel()
+            )
+        }
+        .alert(item: $cloudError) { error in
+            Alert(
+                title: Text("ERROR_ALERT"),
+                message: Text(error.message)
             )
         }
     }
@@ -194,6 +201,55 @@ struct EditProjectView: View {
         if project.closed {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
+    }
+
+    func updateCloudStatus() {
+        project.checkCloudStatus { exists in
+
+            if exists {
+                cloudStatus = .exists
+            } else {
+                cloudStatus = .absent
+            }
+        }
+    }
+
+    func uploadToCloud() {
+        if let username = username {
+            let records = project.prepareCloudRecords(owner: username)
+            let operation = CKModifyRecordsOperation(
+                recordsToSave: records,
+                recordIDsToDelete: nil
+            )
+            operation.modifyRecordsResultBlock = { result in
+                if case .failure(let error) = result {
+                    cloudError = error.getCloudKitError()
+                }
+                updateCloudStatus()
+            }
+            cloudStatus = .checking // while operation completion closure is not called yet
+            CKContainer.default().publicCloudDatabase.add(operation)
+        } else {
+            showingSignIn.toggle()
+        }
+    }
+
+    func removeFromCloud() {
+        let name = project.objectID.uriRepresentation().absoluteString
+        let id = CKRecord.ID(recordName: name)
+
+        let operation = CKModifyRecordsOperation(
+            recordsToSave: nil,
+            recordIDsToDelete: [id]
+        )
+        operation .modifyRecordsResultBlock = { result in
+            if case .failure(let error) = result {
+                cloudError = error.getCloudKitError()
+            }
+            updateCloudStatus()
+        }
+        cloudStatus = .checking // while operation completion closure is not called yet
+        CKContainer.default().publicCloudDatabase.add(operation)
     }
 
     private func showAppSettings() {

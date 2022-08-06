@@ -38,6 +38,9 @@
 		1691C6E128954EF200013450 /* SimpleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6E028954EF200013450 /* SimpleWidget.swift */; };
 		1691C6E328954F8500013450 /* ComplexWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6E228954F8500013450 /* ComplexWidget.swift */; };
 		1691C6E52895511600013450 /* DataController-StoreKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1691C6E42895511600013450 /* DataController-StoreKit.swift */; };
+		1698F74F289C31F500D1FDB5 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F74E289C31F500D1FDB5 /* ChatMessage.swift */; };
+		1698F751289D7D7F00D1FDB5 /* Error-CloudKitMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F750289D7D7F00D1FDB5 /* Error-CloudKitMessages.swift */; };
+		1698F753289D974F00D1FDB5 /* CloudError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F752289D974F00D1FDB5 /* CloudError.swift */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
@@ -50,6 +53,7 @@
 		16B0DFF7288F1538003F2F4F /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0DFF6288F1538003F2F4F /* ProductView.swift */; };
 		16B0DFF9288F1EEC003F2F4F /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0DFF8288F1EEC003F2F4F /* UnlockView.swift */; };
 		16B70B2828897BDE0059F7CE /* ItemRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */; };
+		16B780282898517E0080AF82 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B780272898517E0080AF82 /* SignInView.swift */; };
 		16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */; };
 		16C16411288AF5E6002A56B0 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C16410288AF5E6002A56B0 /* CloudKit.framework */; };
 		16DA2F822896E1B20060AA22 /* SharedProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DA2F812896E1B20060AA22 /* SharedProject.swift */; };
@@ -150,6 +154,9 @@
 		1691C6E028954EF200013450 /* SimpleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWidget.swift; sourceTree = "<group>"; };
 		1691C6E228954F8500013450 /* ComplexWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexWidget.swift; sourceTree = "<group>"; };
 		1691C6E42895511600013450 /* DataController-StoreKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController-StoreKit.swift"; sourceTree = "<group>"; };
+		1698F74E289C31F500D1FDB5 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		1698F750289D7D7F00D1FDB5 /* Error-CloudKitMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error-CloudKitMessages.swift"; sourceTree = "<group>"; };
+		1698F752289D974F00D1FDB5 /* CloudError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudError.swift; sourceTree = "<group>"; };
 		169DFCB3286DC3E100B50C3B /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -163,6 +170,7 @@
 		16B0DFF6288F1538003F2F4F /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		16B0DFF8288F1EEC003F2F4F /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		16B70B2728897BDE0059F7CE /* ItemRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowViewModel.swift; sourceTree = "<group>"; };
+		16B780272898517E0080AF82 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		16C1640D2889CE1F002A56B0 /* AwardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsViewModel.swift; sourceTree = "<group>"; };
 		16C16410288AF5E6002A56B0 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		16DA2F812896E1B20060AA22 /* SharedProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedProject.swift; sourceTree = "<group>"; };
@@ -447,6 +455,10 @@
 				16DA2F852896E3C20060AA22 /* LoadStates.swift */,
 				16DA2F882896E6AD0060AA22 /* SharedProjectsView.swift */,
 				16DA2F8C2897F8400060AA22 /* SharedItemsView.swift */,
+				16B780272898517E0080AF82 /* SignInView.swift */,
+				1698F74E289C31F500D1FDB5 /* ChatMessage.swift */,
+				1698F750289D7D7F00D1FDB5 /* Error-CloudKitMessages.swift */,
+				1698F752289D974F00D1FDB5 /* CloudError.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -688,13 +700,17 @@
 				16EBB075286C738E00199098 /* Project-CoreDataHelpers.swift in Sources */,
 				16EC739D2873793600468007 /* Color-Additions.swift in Sources */,
 				169DFCBC286F508600B50C3B /* EditProjectView.swift in Sources */,
+				16B780282898517E0080AF82 /* SignInView.swift in Sources */,
 				16B0DFF7288F1538003F2F4F /* ProductView.swift in Sources */,
 				16EBB06B286B632F00199098 /* DataController.swift in Sources */,
 				16C1640E2889CE1F002A56B0 /* AwardsViewModel.swift in Sources */,
 				16EC739328730A5800468007 /* SelectSomethingView.swift in Sources */,
 				16B0DFEC288D6BE5003F2F4F /* DataController-Notifications.swift in Sources */,
 				16EC73992873531600468007 /* Award.swift in Sources */,
+				1698F753289D974F00D1FDB5 /* CloudError.swift in Sources */,
 				169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */,
+				1698F74F289C31F500D1FDB5 /* ChatMessage.swift in Sources */,
+				1698F751289D7D7F00D1FDB5 /* Error-CloudKitMessages.swift in Sources */,
 				1691C6E52895511600013450 /* DataController-StoreKit.swift in Sources */,
 				16B0DFF3288E9DC4003F2F4F /* SKProduct-LocalizedPrice.swift in Sources */,
 				16EC73B12876E59D00468007 /* ItemsListView.swift in Sources */,
