@@ -1,4 +1,4 @@
-//
+//  !!! Deprecated !!!
 //  Error-CloudKitMessages.swift
 //  YourPiano
 //
@@ -10,6 +10,8 @@ import Foundation
 
 extension Error {
     /// Returns CloudKit errors in more convenient and clear form.
+    ///
+    /// Method will be deleted
     /// - Returns: Error message, wrapped in Identifiable struct CloudError.
     func getCloudKitError() -> CloudError {
         guard let error = self as? CKError else {

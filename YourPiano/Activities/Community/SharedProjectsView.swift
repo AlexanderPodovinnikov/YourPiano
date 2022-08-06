@@ -65,7 +65,8 @@ struct SharedProjectsView: View {
             switch recordResult {
 
             case .failure(let error):
-                cloudError = error.getCloudKitError()
+//                cloudError = error.getCloudKitError()
+                cloudError = CloudError(error)
 
             case .success(let record):
                 let id = record.recordID.recordName

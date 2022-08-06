@@ -120,11 +120,12 @@ struct SharedItemsView: View {
                 )
                 items.append(sharedItem)
                 itemsLoadState = .success
-            } else if case .failure(let error) = recordResult {
-                print("Failed load item \(error.localizedDescription)")
             }
         }
-        operation.queryResultBlock = { _ in
+        operation.queryResultBlock = { result in
+            if case .failure(let error) = result {
+                cloudError = CloudError(error)
+            }
             if items.isEmpty {
                 itemsLoadState = .noResults
             }
@@ -152,11 +153,12 @@ struct SharedItemsView: View {
                 let message = ChatMessage(from: record)
                 messages.append(message)
                 messagesLoadState = .success
-            } else if case .failure(let error) = recordResult {
-                print("Failed load message \(error.localizedDescription)")
             }
         }
-        operation.queryResultBlock = { _ in
+        operation.queryResultBlock = { result in
+            if case .failure(let error) = result {
+                cloudError = CloudError(error)
+            }
             if messages.isEmpty {
                 messagesLoadState = .noResults
             }
@@ -183,7 +185,7 @@ struct SharedItemsView: View {
         newChatText = ""
         CKContainer.default().publicCloudDatabase.save(message) { record, error in
             if let error = error {
-                print(error.localizedDescription)
+                cloudError = CloudError(error)
                 newChatText = backupChatText
             } else if let record = record {
                 let newMessage = ChatMessage(from: record)
