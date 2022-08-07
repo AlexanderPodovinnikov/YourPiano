@@ -51,7 +51,6 @@
 		1698F76D289FB6BA00D1FDB5 /* DataController-Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B0DFEB288D6BE5003F2F4F /* DataController-Notifications.swift */; };
 		1698F76E289FB6E300D1FDB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73A42874C8B800468007 /* Localizable.strings */; };
 		1698F76F289FB6E800D1FDB5 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 16EC73A82874CD6800468007 /* Localizable.stringsdict */; };
-		1698F770289FB71B00D1FDB5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EBB06E286B935F00199098 /* HomeView.swift */; };
 		1698F771289FB71E00D1FDB5 /* ItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73B02876E59C00468007 /* ItemsListView.swift */; };
 		1698F772289FB72200D1FDB5 /* ProjectSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC73B22876E8E200468007 /* ProjectSummaryView.swift */; };
 		1698F773289FB72500D1FDB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167F70A828832BDA000A8D20 /* HomeViewModel.swift */; };
@@ -92,6 +91,7 @@
 		1698F798289FBAE200D1FDB5 /* PlatformAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F797289FBAE200D1FDB5 /* PlatformAdjustments.swift */; };
 		1698F79A289FBCEE00D1FDB5 /* PlatformAdjustments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F799289FBCEE00D1FDB5 /* PlatformAdjustments.swift */; };
 		1698F79C289FC28300D1FDB5 /* Color-Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F79B289FC28300D1FDB5 /* Color-Additions.swift */; };
+		1698F79E28A02C6900D1FDB5 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1698F79D28A02C6900D1FDB5 /* HomeView.swift */; };
 		169DFCB4286DC3E100B50C3B /* ItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB3286DC3E100B50C3B /* ItemRowView.swift */; };
 		169DFCB6286DC90E00B50C3B /* Binding-OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */; };
 		169DFCB8286F2E5500B50C3B /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */; };
@@ -216,6 +216,7 @@
 		1698F797289FBAE200D1FDB5 /* PlatformAdjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformAdjustments.swift; sourceTree = "<group>"; };
 		1698F799289FBCEE00D1FDB5 /* PlatformAdjustments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformAdjustments.swift; sourceTree = "<group>"; };
 		1698F79B289FC28300D1FDB5 /* Color-Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color-Additions.swift"; sourceTree = "<group>"; };
+		1698F79D28A02C6900D1FDB5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		169DFCB3286DC3E100B50C3B /* ItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRowView.swift; sourceTree = "<group>"; };
 		169DFCB5286DC90E00B50C3B /* Binding-OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding-OnChange.swift"; sourceTree = "<group>"; };
 		169DFCB7286F2E5500B50C3B /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -515,6 +516,7 @@
 				1698F760289FB30200D1FDB5 /* Preview Content */,
 				1698F797289FBAE200D1FDB5 /* PlatformAdjustments.swift */,
 				1698F79B289FC28300D1FDB5 /* Color-Additions.swift */,
+				1698F79D28A02C6900D1FDB5 /* HomeView.swift */,
 			);
 			path = YourPianoMac;
 			sourceTree = "<group>";
@@ -894,6 +896,7 @@
 				1698F789289FB79600D1FDB5 /* SharedItemsView.swift in Sources */,
 				1698F788289FB79300D1FDB5 /* SignInView.swift in Sources */,
 				1698F78A289FB79A00D1FDB5 /* SharedProjectsView.swift in Sources */,
+				1698F79E28A02C6900D1FDB5 /* HomeView.swift in Sources */,
 				1698F785289FB78A00D1FDB5 /* CloudError.swift in Sources */,
 				1698F77D289FB75000D1FDB5 /* AwardsView.swift in Sources */,
 				1698F773289FB72500D1FDB5 /* HomeViewModel.swift in Sources */,
@@ -915,7 +918,6 @@
 				1698F790289FB7BB00D1FDB5 /* Sequence-Sorting.swift in Sources */,
 				1698F787289FB79000D1FDB5 /* ChatMessage.swift in Sources */,
 				1698F793289FB7C900D1FDB5 /* Item-CoreDataHelpers.swift in Sources */,
-				1698F770289FB71B00D1FDB5 /* HomeView.swift in Sources */,
 				1698F76A289FB6AF00D1FDB5 /* DataController.swift in Sources */,
 				1698F78E289FB7B500D1FDB5 /* SKProduct-LocalizedPrice.swift in Sources */,
 				1698F775289FB73000D1FDB5 /* ProjectsViewModel.swift in Sources */,

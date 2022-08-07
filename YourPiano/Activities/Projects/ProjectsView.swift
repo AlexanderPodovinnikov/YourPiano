@@ -29,16 +29,23 @@ struct ProjectsView: View {
     }
 
     var projectsList: some View {
-        List {
+        // List is binded to selectedItem in ProjectViewModel using .tag()
+        List(selection: $viewModel.selectedItem) {
             ForEach(viewModel.projects) {project in
                 Section(header: ProjectHeaderView(project: project)) {
                     ForEach(project.projectItems(using: viewModel.sortOrder)) { item in
                         ItemRowView(project: project, item: item)
+                            .contextMenu {
+                                Button("Delete", role: .destructive) {
+                                    viewModel.delete(item)
+                                }
+                            }
+                            .tag(item) //binded value
                     }
                     .onDelete { offsets in
                         viewModel.delete(at: offsets, from: project)
                     }
-                    if viewModel.showClosedProjects == false { // !showClosedProjects
+                    if viewModel.showClosedProjects == false {
                         Button {
                             withAnimation {
                                 viewModel.addItem(to: project)
@@ -46,11 +53,19 @@ struct ProjectsView: View {
                         } label: {
                             Label("Add New Item", systemImage: "plus")
                         }
+                        .buttonStyle(ImageButtonStyle())
                     }
                 }
+                .disableCollapsing()
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .onDeleteCommand {
+            guard let selectedItem = viewModel.selectedItem else {
+                return
+            }
+            viewModel.delete(selectedItem)
+        }
     }
 
     var addProjectToolbarItem: some ToolbarContent {

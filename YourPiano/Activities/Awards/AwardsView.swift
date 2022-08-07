@@ -28,7 +28,7 @@ struct AwardsView: View {
     }
 
     var body: some View {
-        NavigationView {
+        StackNavigationView {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(Award.allAwards) {item in
@@ -50,6 +50,7 @@ struct AwardsView: View {
                             Text(viewModel.label(for: item))
                         )
                         .accessibilityHint(Text(item.description))
+                        .buttonStyle(ImageButtonStyle())
                     }
                 }
             }

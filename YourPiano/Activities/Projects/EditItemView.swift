@@ -48,9 +48,11 @@ struct EditItemView: View {
                     Text("Mark Completed")
                 }
             }
+            MacOnlySpacer()
         }
         .navigationTitle("Edit Item")
         .onDisappear(perform: save)
+        .macOnlyPadding()
     }
     /// Updates item's title, detail, priority and completed attribute to their actual values.
     func update() {

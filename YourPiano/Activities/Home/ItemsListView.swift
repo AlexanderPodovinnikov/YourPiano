@@ -13,7 +13,16 @@ struct ItemsListView: View {
     /// A title of the list.
     let title: LocalizedStringKey
     @Binding var items: ArraySlice<Item>
-    // @ObservedObject var viewModel: HomeView.ViewModel
+
+    #if os(macOS)
+    let circleSize = 16.0
+    let circleStrokeWidth = 2.0
+    let horizontalSpacing = 10.0
+    #else
+    let circleSize = 44.0
+    let circleStrokeWidth = 3.0
+    let horizontalSpacing = 20.0
+    #endif
 
     var body: some View {
         Group {
@@ -27,10 +36,12 @@ struct ItemsListView: View {
 
                 ForEach(items) {item in
                     NavigationLink(destination: EditItemView(item: item)) {
-                        HStack(spacing: 20) {
+                        HStack(spacing: horizontalSpacing) {
                             Circle()
-                                .stroke(Color(item.project?.projectColor ?? "Light Blue"), lineWidth: 3)
-                                .frame(width: 44, height: 44)
+                            // .strokeBorder instead of .stroke prevents circles spread
+                            // outside their buttons in macOS, because it strokes INSIDE
+                                .strokeBorder(Color(item.project?.projectColor ?? "Light Blue"), lineWidth: circleStrokeWidth)
+                                .frame(width: circleSize, height: circleSize)
                             VStack(alignment: .leading) {
                                 Text(item.itemTitle)
                                     .font(.title2)
@@ -43,11 +54,13 @@ struct ItemsListView: View {
                                 }
                             }
                         }
+                        #if os(iOS)
                         .padding()
                         .background(Color.secondarySystemGroupedBackground)
                         .cornerRadius(10)
                         .shadow(color: Color.black.opacity(0.2), radius: 5)
                         .frame(maxWidth: .infinity, alignment: .leading) // ???
+                        #endif
                     }
                 }
             }

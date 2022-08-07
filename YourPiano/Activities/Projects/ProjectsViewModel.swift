@@ -33,6 +33,11 @@ extension ProjectsView {
         /// Pure array of projects, fetched from the data scope by inner means of DataController
         @Published var projects = [Project]()
 
+        // We need this property to know witch item to be
+        // deleted from a list, when user clicks delete command
+        // from a menu under macOS
+        @Published var selectedItem: Item?
+
         /// An Initializer that creates NSFetchedResultsController using self as a delegate,
         /// so we need to call super.init() inside the initializer.
         /// - Parameters:
@@ -85,6 +90,11 @@ extension ProjectsView {
                 let item = allItems[offset]
                 dataController.delete(item)
             }
+            dataController.save()
+        }
+
+        func delete(_ item: Item) {
+            dataController.delete(item)
             dataController.save()
         }
 
