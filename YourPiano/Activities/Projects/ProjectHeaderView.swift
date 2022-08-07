@@ -1,5 +1,5 @@
 //
-//  ProjecrtHeaderView.swift
+//  ProjectHeaderView.swift
 //  YourPiano
 //
 //  Created by Alex Po on 01.07.2022.

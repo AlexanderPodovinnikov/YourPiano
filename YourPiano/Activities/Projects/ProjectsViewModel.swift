@@ -70,6 +70,7 @@ extension ProjectsView {
             item.project = project
             item.creationDate = Date()
             // Try to trigger FRC for items shown in Home View - it works!
+            item.priority = 2
             item.completed = false
             dataController.save()
         }
@@ -89,14 +90,7 @@ extension ProjectsView {
 
         /// Creates a new project
         func addProject() {
-            let canCreate = dataController.fullVersionUnlocked || dataController.count(for: Project.fetchRequest()) < 3
-
-            if canCreate {
-                let project = Project(context: dataController.container.viewContext)
-                project.closed = false
-                project.creationDate = Date()
-                dataController.save()
-            } else {
+            if dataController.addProject() == false {
                 showingUnlockView.toggle()
             }
         }

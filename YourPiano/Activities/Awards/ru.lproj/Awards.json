@@ -128,7 +128,7 @@
         "image": "bolt.circle.fill"
     },
     {
-        "name": "Скажи: Привет!",
+        "name": "Привет!",
         "description": "Напишите первое сообщение в групповой чат.",
         "color": "Purple",
         "criterion": "chat",
@@ -136,7 +136,7 @@
         "image": "person.fill"
     },
     {
-        "name": "Хороший собеседник",
+        "name": "Всегда на связи",
         "description": "Напишите 10 сообщений в групповой чат.",
         "color": "Purple",
         "criterion": "chat",
@@ -144,7 +144,7 @@
         "image": "message.fill"
     },
     {
-        "name": "Да на тебе все сообщество держится",
+        "name": "Опора сообщества",
         "description": "Напишите 100 сообщений в групповой чат.",
         "color": "Purple",
         "criterion": "chat",

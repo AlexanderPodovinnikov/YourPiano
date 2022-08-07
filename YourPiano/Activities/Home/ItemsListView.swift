@@ -12,8 +12,8 @@ struct ItemsListView: View {
 
     /// A title of the list.
     let title: LocalizedStringKey
-    var items: ArraySlice<Item>
-    @ObservedObject var viewModel: HomeView.ViewModel // required for updating color of items when project color changes
+    @Binding var items: ArraySlice<Item>
+    // @ObservedObject var viewModel: HomeView.ViewModel
 
     var body: some View {
         Group {

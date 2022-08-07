@@ -8,6 +8,7 @@
 import CoreData
 import SwiftUI
 import CoreSpotlight
+import WidgetKit
 
 /// An environment singleton responsible for managing Core Data stack, including handling saving,
 /// counting fetch requests, tracking awards, and dealing with sample data.
@@ -56,6 +57,13 @@ class DataController: ObservableObject {
         // Create in-memory database by writing to /dev/null
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        } else {
+            // so if we’re using a real database we redirect Core Data to use our app group’s container
+            let groupID = "group.com.Po.Alex.YourPiano"
+
+            if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupID) {
+                container.persistentStoreDescriptions.first?.url = url.appendingPathComponent("Main.sqlite")
+            }
         }
 
         container.loadPersistentStores { _, error in
@@ -63,12 +71,17 @@ class DataController: ObservableObject {
                 fatalError("Fatal error loading store: \(error.localizedDescription)")
             }
 
+            // Check the box "Use with iCloud" in CoreData configuration
+            // and enable this to sync data across all devices
+            self.container.viewContext.automaticallyMergesChangesFromParent = true
+
             #if DEBUG
             if CommandLine.arguments.contains("enable-testing") {
                 self.deleteAll()
-
+                #if os(iOS)
                 // Dramatically speeds up all UI tests
                 UIView.setAnimationsEnabled(false)
+                #endif
             }
             #endif
         }
@@ -103,9 +116,14 @@ class DataController: ObservableObject {
     func save() {
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
+            // And force all widgets to update.
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 
+    /// Deletes given item or project.
+    /// - Parameters:
+    ///   - object: Item or Project to delete
     func delete(_ object: NSManagedObject) {
         let id = object.objectID.uriRepresentation().absoluteString
 
@@ -113,23 +131,34 @@ class DataController: ObservableObject {
             CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id])
         } else {
             CSSearchableIndex.default().deleteSearchableItems(withDomainIdentifiers: [id])
-            if let deprecatedProject = object as? Project {
-                removeReminders(for: deprecatedProject)
-            }
         }
         container.viewContext.delete(object)
     }
 
-    // for testing only. It's buggy - all deleted staff still shown until reopening the app
-    // also i don't know what happens with Spotlight searchable items
+    // Core Data runs the batch delete request on the persistent store,
+    // without updating the managed object context reading from that store.
+    // To fix this, we need a method, that gets the result of calling execute(),
+    // reads out the object IDs of the delete objects, then merges those into our live view context.
+
+    // deletes objects in right way correctly updates data context)
+    private func delete(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+
+        if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+            let changes = [NSDeletedObjectsKey: delete.result as? [NSManagedObjectID] ?? []]
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [container.viewContext])
+        }
+
+    }
+    // For testing only,
+    // and I don't know what happens with Spotlight searchable items.
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Item.fetchRequest()
-        let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-        _ = try? container.viewContext.execute(batchDeleteRequest1)
+        delete(fetchRequest1)
 
         let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = Project.fetchRequest()
-        let batchDeleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
-        _ = try? container.viewContext.execute(batchDeleteRequest2)
+        delete(fetchRequest2)
     }
 
     /// Counts elements in a fetch request.
@@ -139,24 +168,18 @@ class DataController: ObservableObject {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
     }
 
-    /// Checks if user has earned the award.
-    /// - Parameter award: The award to check
-    /// - Returns: True if the award was earned, or false - if not.
-    func hasEarned(award: Award) -> Bool {
-        switch award.criterion {
+    /// Adds a new project.
+    /// - Returns: True if adding project succeed, false if it failed.
+    @discardableResult func addProject() -> Bool {
+        let canCreate = fullVersionUnlocked || count(for: Project.fetchRequest()) < 3
 
-        case "items":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        case "complete":
-            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
-            fetchRequest.predicate = NSPredicate(format: "completed = true")
-            let awardCount = count(for: fetchRequest)
-            return awardCount >= award.value
-
-        default:
+        if canCreate {
+            let project = Project(context: container.viewContext)
+            project.closed = false
+            project.creationDate = Date()
+            save()
+            return true
+        } else {
             return false
         }
     }
@@ -191,6 +214,33 @@ class DataController: ObservableObject {
             return nil
         }
         return try? container.viewContext.existingObject(with: id) as? Item
+    }
+
+    /// Creates a request to fetch a limited number of top priority not completed items
+    /// from open projects.
+    /// - Parameter count: Number of  items you want to fetch.
+    /// - Returns: A fetch request.
+    func fetchRequestForTopItems(count: Int) -> NSFetchRequest<Item> {
+        let itemRequest: NSFetchRequest<Item> = Item.fetchRequest()
+
+        let completedPredicate = NSPredicate(format: "completed = false")
+            let openPredicate = NSPredicate(format: "project.closed = false")
+            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [completedPredicate, openPredicate])
+            itemRequest.predicate = compoundPredicate
+
+            itemRequest.sortDescriptors = [
+                NSSortDescriptor(keyPath: \Item.priority, ascending: false)
+            ]
+
+            itemRequest.fetchLimit = count
+
+        return itemRequest
+    }
+
+    /// Fetches a result of given Core Data request.
+    /// - Returns: An array of T
+    func results<T: NSManagedObject>(for fetchRequest: NSFetchRequest<T>) -> [T] {
+        return (try? container.viewContext.fetch(fetchRequest)) ?? []
     }
 
     // preview data

@@ -56,6 +56,8 @@ extension HomeView {
             func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
                 if let newItems = controller.fetchedObjects as? [Item] {
                     parent.items = newItems
+                    parent.upNext = parent.items.prefix(3)
+                    parent.moreToExplore = parent.items.dropFirst(3)
                 }
             }
         }
@@ -76,14 +78,10 @@ extension HomeView {
         var dataController: DataController
 
         /// A slice, containing first 3 hi priority items
-        var upNext: ArraySlice<Item> {
-            items.prefix(3)
-        }
+        @Published var upNext = ArraySlice<Item>()
 
         /// A slice, containing up to 7 more items from the fetch request results
-        var moreToExplore: ArraySlice<Item> {
-            items.dropFirst(3)
-        }
+        @Published var moreToExplore = ArraySlice<Item>()
 
         init(dataController: DataController) {
             self.dataController = dataController
@@ -100,22 +98,7 @@ extension HomeView {
             )
             // Construct a fetch request to show the 10 highest-priority,
             // incomplete items from open projects.
-            let itemRequest: NSFetchRequest<Item> = Item.fetchRequest()
-
-            // itemRequest.predicate = NSPredicate(format: "completed = false AND project.closed = false")
-            // but I'v done it the hard way:
-            let completedPredicate = NSPredicate(format: "completed = false")
-            let openPredicate = NSPredicate(format: "project.closed = false")
-            let compoundPredicate = NSCompoundPredicate(
-                type: .and,
-                subpredicates: [completedPredicate, openPredicate]
-            )
-            itemRequest.predicate = compoundPredicate
-
-            itemRequest.sortDescriptors = [
-                NSSortDescriptor(keyPath: \Item.priority, ascending: false)
-            ]
-            itemRequest.fetchLimit = 10
+            let itemRequest = dataController.fetchRequestForTopItems(count: 10)
 
             itemsController = NSFetchedResultsController(
                 fetchRequest: itemRequest,
@@ -134,6 +117,8 @@ extension HomeView {
                 try itemsController.performFetch()
                 projects = projectsController.fetchedObjects ?? []
                 items = itemsController.fetchedObjects ?? []
+                upNext = items.prefix(3)
+                moreToExplore = items.dropFirst(3)
             } catch {
                 print("Failed to fetch initial data.")
             }

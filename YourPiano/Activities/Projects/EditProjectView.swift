@@ -6,32 +6,34 @@
 //
 
 import SwiftUI
+import CloudKit
 
 /// View to edit project attributes or to delete  project permanently
 struct EditProjectView: View {
+    /// Indicates if a project already exists in the Cloud, or is absent, or is been checking.
+    enum CloudStatus {
+        case checking, exists, absent
+    }
 
     /// Current project.
     let project: Project
 
-    /// Environment variable to control View dismiss.
+    /// Valid username
+    @AppStorage("username") var username: String?
     @Environment(\.presentationMode) var presentationMode
-
     @EnvironmentObject var dataController: DataController
 
+    @State private var cloudError: CloudError?
+    @State private var showingSignIn = false
+    @State private var cloudStatus = CloudStatus.checking
     @State private var showingNotificationsError = false
-
     @State private var showingDeleteConfirm = false
-    /// Property to store project title
     @State private var title: String
-    /// Property to store project detail
     @State private var detail: String
-    /// Property to store project color
     @State private var color: String
 
-    /// A flag showing whether to remind user or not.
     @State private var remindMe: Bool
 
-    /// Time to show  notification
     @State private var reminderTime: Date
 
     let colorColumns = [GridItem(.adaptive(minimum: 44))]
@@ -58,6 +60,7 @@ struct EditProjectView: View {
                 TextField("Section name", text: $title.onChange(update))
                 TextField("Description of the section", text: $detail.onChange(update))
             }
+
             Section(header: Text("Custom section color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self, content: colorButton)
@@ -66,13 +69,13 @@ struct EditProjectView: View {
             }
             Section(header: Text("Section reminders")) {
                 Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
-                    .alert(isPresented: $showingNotificationsError) {
-                        Alert(
-                            title: Text("OOPS_!"),
-                            message: Text("NOTIFICATION_PROBLEM_MSG"),
-                            primaryButton: .default(Text("CHECK_SETTINGS"),
-                            action: showAppSettings),
-                            secondaryButton: .cancel())
+                    .alert("OOPS_!", isPresented: $showingNotificationsError) {
+                        #if os(iOS)
+                        Button("CHECK_SETTINGS", action: showAppSettings)
+                        #endif
+                        Button("OK") { }
+                    } message: {
+                        Text("NOTIFICATION_PROBLEM_MSG")
                     }
                 if remindMe {
                     DatePicker("Reminder time",
@@ -93,16 +96,40 @@ struct EditProjectView: View {
                     showingDeleteConfirm.toggle()
                 }
                 .accentColor(.red)
+                .alert(isPresented: $showingDeleteConfirm) {
+                    Alert(
+                        title: Text("Delete Section?"),
+                        message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
+                        primaryButton: .default(Text("Delete"), action: delete),
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
+        .sheet(isPresented: $showingSignIn, content: SignInView.init)
         .navigationTitle("Edit Section")
+        .toolbar(content: {
+            switch cloudStatus {
+            case .checking:
+                ProgressView()
+            case .exists:
+                Button {
+                    removeFromCloud(deleteLocal: false)
+                } label: {
+                    Label("REMOVE_FROM_ICLOUD", systemImage: "icloud.slash")
+                }
+            case .absent:
+                Button(action: uploadToCloud) {
+                    Label("UPLOAD_TO_ICLOUD", systemImage: "icloud.and.arrow.up")
+                }
+            }
+        })
+        .onAppear(perform: updateCloudStatus)
         .onDisappear(perform: dataController.save)
-        .alert(isPresented: $showingDeleteConfirm) {
+        .alert(item: $cloudError) { error in
             Alert(
-                title: Text("Delete Section?"),
-                message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
-                primaryButton: .default(Text("Delete"), action: delete),
-                secondaryButton: .cancel()
+                title: Text("ERROR_ALERT"),
+                message: Text(error.localizedMessage)
             )
         }
     }
@@ -158,10 +185,15 @@ struct EditProjectView: View {
         }
     }
 
-    /// Deletes current project and dismisses the View
+    /// Deletes current project, its reminders, and dismisses the View
     func delete() {
-        dataController.delete(project)
-        presentationMode.wrappedValue.dismiss()
+        dataController.removeReminders(for: project)
+        if cloudStatus == .exists {
+            removeFromCloud(deleteLocal: true)
+        } else {
+            dataController.delete(project)
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 
     /// Closes a project if it was open and vice-verse
@@ -172,11 +204,67 @@ struct EditProjectView: View {
         for item in project.projectItems {
             item.completed = item.completed
         }
+        #if os(iOS)
         if project.closed {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
+        #endif
     }
 
+    func updateCloudStatus() {
+        project.checkCloudStatus { exists in
+
+            if exists {
+                cloudStatus = .exists
+            } else {
+                cloudStatus = .absent
+            }
+        }
+    }
+
+    func uploadToCloud() {
+        if let username = username {
+            let records = project.prepareCloudRecords(owner: username)
+            let operation = CKModifyRecordsOperation(
+                recordsToSave: records,
+                recordIDsToDelete: nil
+            )
+            operation.modifyRecordsResultBlock = { result in
+                if case .failure(let error) = result {
+                    cloudError = CloudError(error)
+                }
+                updateCloudStatus()
+            }
+            cloudStatus = .checking // while operation completion closure is not called yet
+            CKContainer.default().publicCloudDatabase.add(operation)
+        } else {
+            showingSignIn.toggle()
+        }
+    }
+
+    /// Deletes project from iCloud only, or both the local project and the cloud copy.
+    /// - Parameter deleteLocal: If true - deletes also the local project.
+    func removeFromCloud(deleteLocal: Bool) {
+        let name = project.objectID.uriRepresentation().absoluteString
+        let id = CKRecord.ID(recordName: name)
+
+        let operation = CKModifyRecordsOperation(
+            recordsToSave: nil,
+            recordIDsToDelete: [id]
+        )
+        operation .modifyRecordsResultBlock = { result in
+            if case .failure(let error) = result {
+                cloudError = CloudError(error)
+            } else if deleteLocal {
+                dataController.delete(project)
+                return
+            }
+            updateCloudStatus()
+        }
+        cloudStatus = .checking // while operation completion closure is not called yet
+        CKContainer.default().publicCloudDatabase.add(operation)
+    }
+    #if os(iOS)
     private func showAppSettings() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
             return
@@ -185,6 +273,7 @@ struct EditProjectView: View {
             UIApplication.shared.open(settingsUrl)
         }
     }
+    #endif
 }
 
 struct EditProjectView_Previews: PreviewProvider {
