@@ -6,10 +6,16 @@
 //
 import CloudKit
 import Foundation
+import SwiftUI
+
+// !!! WTF with localization? !!!
 
 /// Identifiable clear error message
 struct CloudError: Identifiable, ExpressibleByStringInterpolation {
     var id: String { message }
+    var localizedMessage: LocalizedStringKey {
+        LocalizedStringKey(message)
+    }
     private(set) var message: String
 
     init(stringLiteral value: String) {
@@ -18,12 +24,12 @@ struct CloudError: Identifiable, ExpressibleByStringInterpolation {
 
     init(_ error: Error) {
         guard let error = error as? CKError else {
-            message = "UNKNOWN_ERROR \(error.localizedDescription)"
+            message = "\(error.localizedDescription)"  // Unknown error
             return
         }
         switch error.code {
         case .badDatabase, .badContainer, .invalidArguments:
-            message = "FATAL_ERROR \(error.localizedDescription)"
+            message = "\(error.localizedDescription)"  // Fatal error
         case .networkFailure, .networkUnavailable, .serverResponseLost, .serviceUnavailable:
             message = "COMMUNICATION_ERROR"
         case .notAuthenticated:
@@ -34,7 +40,7 @@ struct CloudError: Identifiable, ExpressibleByStringInterpolation {
             message = "QUOTA_ERROR"
 
         default:
-            message = "UNKNOWN_ERROR \(error.localizedDescription)"
+            message = "\(error.localizedDescription)"  // Unknown error
         }
     }
 }

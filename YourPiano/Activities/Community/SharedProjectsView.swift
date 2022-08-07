@@ -37,10 +37,15 @@ struct SharedProjectsView: View {
                 }
             }
             .navigationTitle("SHARED_PROJECTS")
+            .toolbar(content: {
+                Button(action: synchronize) {
+                    Label("SYNCHRONIZE", systemImage: "arrow.clockwise.icloud")
+                }
+            })
             .alert(item: $cloudError) { error in
                 Alert(
                     title: Text("ERROR_ALERT"),
-                    message: Text(error.message)
+                    message: Text(error.localizedMessage)
                 )
             }
         }
@@ -92,6 +97,13 @@ struct SharedProjectsView: View {
             }
         }
         CKContainer.default().publicCloudDatabase.add(operation)
+    }
+
+    /// Syncronizes view with actual cloud data.
+    func synchronize() {
+        projects = []
+        loadState = .inactive
+        fetchSharedProjects()
     }
 }
 

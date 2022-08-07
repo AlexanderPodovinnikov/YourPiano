@@ -69,13 +69,13 @@ struct EditProjectView: View {
             }
             Section(header: Text("Section reminders")) {
                 Toggle("Show reminders", isOn: $remindMe.animation().onChange(update))
-                    .alert(isPresented: $showingNotificationsError) {
-                        Alert(
-                            title: Text("OOPS_!"),
-                            message: Text("NOTIFICATION_PROBLEM_MSG"),
-                            primaryButton: .default(Text("CHECK_SETTINGS"),
-                            action: showAppSettings),
-                            secondaryButton: .cancel())
+                    .alert("OOPS_!", isPresented: $showingNotificationsError) {
+                        #if os(iOS)
+                        Button("CHECK_SETTINGS", action: showAppSettings)
+                        #endif
+                        Button("OK") { }
+                    } message: {
+                        Text("NOTIFICATION_PROBLEM_MSG")
                     }
                 if remindMe {
                     DatePicker("Reminder time",
@@ -96,6 +96,14 @@ struct EditProjectView: View {
                     showingDeleteConfirm.toggle()
                 }
                 .accentColor(.red)
+                .alert(isPresented: $showingDeleteConfirm) {
+                    Alert(
+                        title: Text("Delete Section?"),
+                        message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
+                        primaryButton: .default(Text("Delete"), action: delete),
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
         .sheet(isPresented: $showingSignIn, content: SignInView.init)
@@ -105,7 +113,9 @@ struct EditProjectView: View {
             case .checking:
                 ProgressView()
             case .exists:
-                Button(action: removeFromCloud) {
+                Button {
+                    removeFromCloud(deleteLocal: false)
+                } label: {
                     Label("REMOVE_FROM_ICLOUD", systemImage: "icloud.slash")
                 }
             case .absent:
@@ -116,18 +126,10 @@ struct EditProjectView: View {
         })
         .onAppear(perform: updateCloudStatus)
         .onDisappear(perform: dataController.save)
-        .alert(isPresented: $showingDeleteConfirm) {
-            Alert(
-                title: Text("Delete Section?"),
-                message: Text("Do you confirm that with a firm hand you want to remove this section and all of its items?"),  // swiftlint:disable:this line_length
-                primaryButton: .default(Text("Delete"), action: delete),
-                secondaryButton: .cancel()
-            )
-        }
         .alert(item: $cloudError) { error in
             Alert(
                 title: Text("ERROR_ALERT"),
-                message: Text(error.message)
+                message: Text(error.localizedMessage)
             )
         }
     }
@@ -186,8 +188,12 @@ struct EditProjectView: View {
     /// Deletes current project, its reminders, and dismisses the View
     func delete() {
         dataController.removeReminders(for: project)
-        dataController.delete(project)
-        presentationMode.wrappedValue.dismiss()
+        if cloudStatus == .exists {
+            removeFromCloud(deleteLocal: true)
+        } else {
+            dataController.delete(project)
+            presentationMode.wrappedValue.dismiss()
+        }
     }
 
     /// Closes a project if it was open and vice-verse
@@ -198,9 +204,11 @@ struct EditProjectView: View {
         for item in project.projectItems {
             item.completed = item.completed
         }
+        #if os(iOS)
         if project.closed {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
+        #endif
     }
 
     func updateCloudStatus() {
@@ -223,7 +231,7 @@ struct EditProjectView: View {
             )
             operation.modifyRecordsResultBlock = { result in
                 if case .failure(let error) = result {
-                    cloudError = error.getCloudKitError()
+                    cloudError = CloudError(error)
                 }
                 updateCloudStatus()
             }
@@ -234,7 +242,9 @@ struct EditProjectView: View {
         }
     }
 
-    func removeFromCloud() {
+    /// Deletes project from iCloud only, or both the local project and the cloud copy.
+    /// - Parameter deleteLocal: If true - deletes also the local project.
+    func removeFromCloud(deleteLocal: Bool) {
         let name = project.objectID.uriRepresentation().absoluteString
         let id = CKRecord.ID(recordName: name)
 
@@ -244,14 +254,17 @@ struct EditProjectView: View {
         )
         operation .modifyRecordsResultBlock = { result in
             if case .failure(let error) = result {
-                cloudError = error.getCloudKitError()
+                cloudError = CloudError(error)
+            } else if deleteLocal {
+                dataController.delete(project)
+                return
             }
             updateCloudStatus()
         }
         cloudStatus = .checking // while operation completion closure is not called yet
         CKContainer.default().publicCloudDatabase.add(operation)
     }
-
+    #if os(iOS)
     private func showAppSettings() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
             return
@@ -260,6 +273,7 @@ struct EditProjectView: View {
             UIApplication.shared.open(settingsUrl)
         }
     }
+    #endif
 }
 
 struct EditProjectView_Previews: PreviewProvider {

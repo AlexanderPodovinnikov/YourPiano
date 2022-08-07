@@ -11,8 +11,7 @@ import SwiftUI
 /// list of projects, each - with list of own items
 struct ProjectsView: View {
     @StateObject var viewModel: ViewModel
-    /// A boolean to bind with ActionSheet that shows sorting options.
-    @State private var showingSortOrder = false
+
     /// A tag to remember which tab is selected when the app went into the background or was closed.
     static let openTag: String? = "Open"
     /// A tag to remember which tab is selected when the app went into the background or was closed.
@@ -55,32 +54,27 @@ struct ProjectsView: View {
     }
 
     var addProjectToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
             if viewModel.showClosedProjects == false {
                 Button {
                     withAnimation {
                         viewModel.addProject()
                     }
                 } label: {
-                    // Label("Add Section", systemImage: "plus")
                     // Label View will be placed automatically depending on the platform
-
-                    // Next code was written instead due to a bug in VoiceOver.
-                    // Maybe, later it won't be needed
-                    if UIAccessibility.isVoiceOverRunning {
-                        Text("Add Section")
-                    } else {
-                        Label("Add Section", systemImage: "plus")
-                    }
+                    Label("Add Section", systemImage: "plus")
                 }
             }
         }
     }
 
+
     var sortOrderToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-                showingSortOrder.toggle()
+        ToolbarItem(placement: .cancellationAction) {
+            Menu {
+                Button("Optimized") { viewModel.sortOrder = .optimized}
+                Button("Creation date") { viewModel.sortOrder = .creationDate }
+                Button("Title") { viewModel.sortOrder = .title}
             } label: {
                 Label("Sort", systemImage: "arrow.up.arrow.down")
             }
@@ -97,13 +91,6 @@ struct ProjectsView: View {
                 }
             }
             .navigationTitle(viewModel.showClosedProjects ? "Completed Sections" : "Sections in progress")
-            .actionSheet(isPresented: $showingSortOrder) {
-                ActionSheet(title: Text("Sort items"), message: nil, buttons: [
-                    .default(Text("Optimized")) { viewModel.sortOrder = .optimized},
-                    .default(Text("Creation date")) { viewModel.sortOrder = .creationDate },
-                    .default(Text("Title")) { viewModel.sortOrder = .title}
-                ])
-            }
             .toolbar {
                 addProjectToolbarItem
                 sortOrderToolbarItem

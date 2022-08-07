@@ -26,6 +26,9 @@ extension DataController {
             let awardCount = count(for: fetchRequest)
             return awardCount >= award.value
 
+        case "chat":
+            return UserDefaults.standard.integer(forKey: "chatCount") >= award.value
+
         default:
             return false
         }

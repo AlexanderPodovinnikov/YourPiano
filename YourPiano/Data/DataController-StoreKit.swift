@@ -9,6 +9,7 @@ import StoreKit
 
 extension DataController {
 // Wonder if it works
+    #if os(iOS)
     func appLaunched() {
         guard count(for: Project.fetchRequest()) >= 5 else { return }
 
@@ -19,4 +20,5 @@ extension DataController {
             SKStoreReviewController.requestReview(in: windowScene)
         }
     }
+    #endif
 }

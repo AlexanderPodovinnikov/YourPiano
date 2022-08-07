@@ -78,9 +78,10 @@ class DataController: ObservableObject {
             #if DEBUG
             if CommandLine.arguments.contains("enable-testing") {
                 self.deleteAll()
-
+                #if os(iOS)
                 // Dramatically speeds up all UI tests
                 UIView.setAnimationsEnabled(false)
+                #endif
             }
             #endif
         }

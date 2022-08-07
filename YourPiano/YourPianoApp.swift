@@ -11,7 +11,9 @@ import SwiftUI
 struct YourPianoApp: App {
     @StateObject var dataController: DataController
     @StateObject var unlockManager: UnlockManager
+    #if os(iOS)
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // needs more digging
+    #endif
 
 // We need two StateObjects, one of which depends on the other,
 // so we only have one way to do this - in an initializer.
@@ -23,9 +25,9 @@ struct YourPianoApp: App {
         _dataController = StateObject(wrappedValue: dataController)
         _unlockManager = StateObject(wrappedValue: unlockManager)
 
-        #if targetEnvironment(simulator)
-        UserDefaults.standard.set("ALexPo", forKey: "username")
-        #endif
+//        #if targetEnvironment(simulator)
+//        UserDefaults.standard.set("ALexPo", forKey: "username")
+//        #endif
     }
 
     var body: some Scene {
@@ -41,7 +43,7 @@ struct YourPianoApp: App {
             // phase won't detect our app losing focus.
                 .onReceive(
                     NotificationCenter.default.publisher(
-                        for: UIApplication.willResignActiveNotification
+                        for: .willResignActive
                     ),
                     perform: save
                 )

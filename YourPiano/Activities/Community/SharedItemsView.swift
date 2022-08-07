@@ -12,6 +12,9 @@ struct SharedItemsView: View {
 
     @AppStorage("username") var username: String?
 
+    /// Counter for user messages
+    @AppStorage("chatCount") var chatCount = 0
+
     /// A Project, that was loaded from Cloud to investigate its items and comments
     let project: SharedProject
 
@@ -84,7 +87,7 @@ struct SharedItemsView: View {
         .alert(item: $cloudError) { error in
             Alert(
                 title: Text("ERROR_ALERT"),
-                message: Text(error.message)
+                message: Text(error.localizedMessage)
             )
         }
     }
@@ -190,6 +193,7 @@ struct SharedItemsView: View {
             } else if let record = record {
                 let newMessage = ChatMessage(from: record)
                 messages.append(newMessage)
+                chatCount += 1
             }
         }
     }
