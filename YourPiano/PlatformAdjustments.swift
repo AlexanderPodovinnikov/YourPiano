@@ -47,4 +47,3 @@ extension View {
 
 // Spacer that works only for macOS
 typealias MacOnlySpacer = EmptyView
-

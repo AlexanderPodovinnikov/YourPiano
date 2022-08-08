@@ -105,7 +105,9 @@ struct EditProjectView: View {
                     )
                 }
             }
+            MacOnlySpacer()
         }
+        .macOnlyPadding()
         .sheet(isPresented: $showingSignIn, content: SignInView.init)
         .navigationTitle("Edit Section")
         .toolbar(content: {

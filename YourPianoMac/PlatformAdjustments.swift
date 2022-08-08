@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//Fixing error in macOS
+// Fixing error in macOS
 typealias InsetGroupedListStyle = SidebarListStyle
 
 extension Notification.Name {

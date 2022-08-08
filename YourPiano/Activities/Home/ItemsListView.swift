@@ -40,7 +40,10 @@ struct ItemsListView: View {
                             Circle()
                             // .strokeBorder instead of .stroke prevents circles spread
                             // outside their buttons in macOS, because it strokes INSIDE
-                                .strokeBorder(Color(item.project?.projectColor ?? "Light Blue"), lineWidth: circleStrokeWidth)
+                                .strokeBorder(
+                                    Color(item.project?.projectColor ?? "Light Blue"),
+                                    lineWidth: circleStrokeWidth
+                                )
                                 .frame(width: circleSize, height: circleSize)
                             VStack(alignment: .leading) {
                                 Text(item.itemTitle)

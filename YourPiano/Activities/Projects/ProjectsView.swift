@@ -32,7 +32,9 @@ struct ProjectsView: View {
         // List is binded to selectedItem in ProjectViewModel using .tag()
         List(selection: $viewModel.selectedItem) {
             ForEach(viewModel.projects) {project in
-                Section(header: ProjectHeaderView(project: project)) {
+//                Section(header: ProjectHeaderView(project: project)) {
+                Section {
+                    ProjectHeaderView(project: project)
                     ForEach(project.projectItems(using: viewModel.sortOrder)) { item in
                         ItemRowView(project: project, item: item)
                             .contextMenu {
@@ -40,7 +42,7 @@ struct ProjectsView: View {
                                     viewModel.delete(item)
                                 }
                             }
-                            .tag(item) //binded value
+                            .tag(item) // binded value
                     }
                     .onDelete { offsets in
                         viewModel.delete(at: offsets, from: project)
@@ -56,7 +58,7 @@ struct ProjectsView: View {
                         .buttonStyle(ImageButtonStyle())
                     }
                 }
-                .disableCollapsing()
+                .disableCollapsing() // needed for macOS - see PlatformAdjustments.swift
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -82,7 +84,6 @@ struct ProjectsView: View {
             }
         }
     }
-
 
     var sortOrderToolbarItem: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
